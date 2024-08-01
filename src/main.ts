@@ -48,7 +48,7 @@ const createWindow = () => {
     mainWindow?.maximize()
   });
 
-};//
+};
 
 app.on('ready', createWindow);
 
