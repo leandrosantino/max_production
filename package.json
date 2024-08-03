@@ -16,7 +16,10 @@
       "test": "npx tsx ./test.ts",
       "db.seed": "npx tsx ./prisma/seed.ts",
       "db.create": "prisma db push && npm run db.seed",
-      "db.studio": "prisma studio"
+      "db.studio": "prisma studio",
+      "py": ".\\python\\runtime\\python.exe",
+      "pip": ".\\python\\runtime\\python.exe -m pip",
+      "py.opt": ".\\python\\runtime\\python.exe python\\optimization.py"
    },
    "devDependencies": {
       "@electron-forge/cli": "^7.3.0",

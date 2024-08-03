@@ -1,0 +1,599 @@
+{
+  "objective": {
+    "name": "OBJ",
+    "coefficients": [
+      {
+        "name": "Products_LIBERADO_TETO_ACABADO_226F_BL",
+        "value": 1
+      },
+      {
+        "name": "Products_LIBERADO_TETO_ACABADO_551F_SG___22",
+        "value": 1
+      },
+      {
+        "name": "Products_LIBERADO_TETO_ACABADO_551P_SG",
+        "value": 1
+      },
+      {
+        "name": "Products_LIBERADO_TETO_ACABADO_551P_BL",
+        "value": 1
+      },
+      {
+        "name": "Products_LIBERADO_TETO_ACABADO_598P_BL",
+        "value": 1
+      },
+      {
+        "name": "Products_LIBERADO_TETO_ACABADO_598F_SG",
+        "value": 1
+      },
+      {
+        "name": "Products_LIBERADO_TETO_ACABADO_598F_BL",
+        "value": 1
+      },
+      {
+        "name": "Products_LIBERADO_TETO_ACABADO_521F_BL",
+        "value": 1
+      },
+      {
+        "name": "Products_LIBERADO_TETO_ACABADO_226F_SG_",
+        "value": 1
+      },
+      {
+        "name": "Products_LIBERADO_TETO_ACABADO_291F_SG",
+        "value": 1
+      },
+      {
+        "name": "Products_LIBERADO_TETO_ACABADO_291F_BL_c_recorte",
+        "value": 1
+      },
+      {
+        "name": "Products_LIBERADO_TETO_ACABADO_521P_BL",
+        "value": 1
+      },
+      {
+        "name": "Products_LIBERADO_TETO_ACABADO_521P_SG",
+        "value": 1
+      },
+      {
+        "name": "Products_LIBERADO_TETO_ACABADO_551F_SG___21",
+        "value": 1
+      },
+      {
+        "name": "Products_LIBERADO_TETO_ACABADO_551F_BL",
+        "value": 1
+      },
+      {
+        "name": "Products_LIBERADO_TETO_ACABADO_291F_BL_s_recorte",
+        "value": 1
+      },
+      {
+        "name": "Products_LIBERADO_TETO_ACABADO_521F_SG",
+        "value": 1
+      }
+    ]
+  },
+  "constraints": [
+    {
+      "sense": 1,
+      "pi": -0.0,
+      "constant": -227,
+      "name": "Minimal_Lot_of_production_to_LIBERADO_TETO_ACABADO_226F_BL",
+      "coefficients": [
+        {
+          "name": "Products_LIBERADO_TETO_ACABADO_226F_BL",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "sense": 1,
+      "pi": -0.0,
+      "constant": -8,
+      "name": "Minimal_Lot_of_production_to_LIBERADO_TETO_ACABADO_551F_SG___22",
+      "coefficients": [
+        {
+          "name": "Products_LIBERADO_TETO_ACABADO_551F_SG___22",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "sense": 1,
+      "pi": -0.0,
+      "constant": 77,
+      "name": "Minimal_Lot_of_production_to_LIBERADO_TETO_ACABADO_551P_SG",
+      "coefficients": [
+        {
+          "name": "Products_LIBERADO_TETO_ACABADO_551P_SG",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "sense": 1,
+      "pi": -0.0,
+      "constant": 105,
+      "name": "Minimal_Lot_of_production_to_LIBERADO_TETO_ACABADO_551P_BL",
+      "coefficients": [
+        {
+          "name": "Products_LIBERADO_TETO_ACABADO_551P_BL",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "sense": 1,
+      "pi": -0.0,
+      "constant": 49,
+      "name": "Minimal_Lot_of_production_to_LIBERADO_TETO_ACABADO_598P_BL",
+      "coefficients": [
+        {
+          "name": "Products_LIBERADO_TETO_ACABADO_598P_BL",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "sense": 1,
+      "pi": -0.0,
+      "constant": 78,
+      "name": "Minimal_Lot_of_production_to_LIBERADO_TETO_ACABADO_598F_SG",
+      "coefficients": [
+        {
+          "name": "Products_LIBERADO_TETO_ACABADO_598F_SG",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "sense": 1,
+      "pi": -0.0,
+      "constant": 113,
+      "name": "Minimal_Lot_of_production_to_LIBERADO_TETO_ACABADO_598F_BL",
+      "coefficients": [
+        {
+          "name": "Products_LIBERADO_TETO_ACABADO_598F_BL",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "sense": 1,
+      "pi": -0.0,
+      "constant": -160,
+      "name": "Minimal_Lot_of_production_to_LIBERADO_TETO_ACABADO_521F_BL",
+      "coefficients": [
+        {
+          "name": "Products_LIBERADO_TETO_ACABADO_521F_BL",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "sense": 1,
+      "pi": -0.0,
+      "constant": -45,
+      "name": "Minimal_Lot_of_production_to_LIBERADO_TETO_ACABADO_226F_SG_",
+      "coefficients": [
+        {
+          "name": "Products_LIBERADO_TETO_ACABADO_226F_SG_",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "sense": 1,
+      "pi": -0.0,
+      "constant": -31,
+      "name": "Minimal_Lot_of_production_to_LIBERADO_TETO_ACABADO_291F_SG",
+      "coefficients": [
+        {
+          "name": "Products_LIBERADO_TETO_ACABADO_291F_SG",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "sense": 1,
+      "pi": -0.0,
+      "constant": -6,
+      "name": "Minimal_Lot_of_production_to_LIBERADO_TETO_ACABADO_291F_BL_c/recorte",
+      "coefficients": [
+        {
+          "name": "Products_LIBERADO_TETO_ACABADO_291F_BL_c_recorte",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "sense": 1,
+      "pi": -0.0,
+      "constant": 6,
+      "name": "Minimal_Lot_of_production_to_LIBERADO_TETO_ACABADO_521P_BL",
+      "coefficients": [
+        {
+          "name": "Products_LIBERADO_TETO_ACABADO_521P_BL",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "sense": 1,
+      "pi": -0.0,
+      "constant": 35,
+      "name": "Minimal_Lot_of_production_to_LIBERADO_TETO_ACABADO_521P_SG",
+      "coefficients": [
+        {
+          "name": "Products_LIBERADO_TETO_ACABADO_521P_SG",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "sense": 1,
+      "pi": -0.0,
+      "constant": 33,
+      "name": "Minimal_Lot_of_production_to_LIBERADO_TETO_ACABADO_551F_SG___21",
+      "coefficients": [
+        {
+          "name": "Products_LIBERADO_TETO_ACABADO_551F_SG___21",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "sense": 1,
+      "pi": -0.0,
+      "constant": 32,
+      "name": "Minimal_Lot_of_production_to_LIBERADO_TETO_ACABADO_551F_BL",
+      "coefficients": [
+        {
+          "name": "Products_LIBERADO_TETO_ACABADO_551F_BL",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "sense": 1,
+      "pi": -0.0,
+      "constant": 200,
+      "name": "Minimal_Lot_of_production_to_LIBERADO_TETO_ACABADO_291F_BL_s/recorte",
+      "coefficients": [
+        {
+          "name": "Products_LIBERADO_TETO_ACABADO_291F_BL_s_recorte",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "sense": 1,
+      "pi": -0.0,
+      "constant": 280,
+      "name": "Minimal_Lot_of_production_to_LIBERADO_TETO_ACABADO_521F_SG",
+      "coefficients": [
+        {
+          "name": "Products_LIBERADO_TETO_ACABADO_521F_SG",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "sense": -1,
+      "pi": -0.0,
+      "constant": -515,
+      "name": "Line_226_capacity_restrictions",
+      "coefficients": [
+        {
+          "name": "Products_LIBERADO_TETO_ACABADO_226F_BL",
+          "value": 1
+        },
+        {
+          "name": "Products_LIBERADO_TETO_ACABADO_226F_SG_",
+          "value": 1
+        },
+        {
+          "name": "Products_LIBERADO_TETO_ACABADO_291F_SG",
+          "value": 1
+        },
+        {
+          "name": "Products_LIBERADO_TETO_ACABADO_291F_BL_c_recorte",
+          "value": 1
+        },
+        {
+          "name": "Products_LIBERADO_TETO_ACABADO_291F_BL_s_recorte",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "sense": -1,
+      "pi": -0.0,
+      "constant": -548,
+      "name": "Line_521.1___521.2_capacity_restrictions_",
+      "coefficients": [
+        {
+          "name": "Products_LIBERADO_TETO_ACABADO_521F_BL",
+          "value": 1
+        },
+        {
+          "name": "Products_LIBERADO_TETO_ACABADO_521F_SG",
+          "value": 1
+        },
+        {
+          "name": "Products_LIBERADO_TETO_ACABADO_521P_BL",
+          "value": 1
+        },
+        {
+          "name": "Products_LIBERADO_TETO_ACABADO_521P_SG",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "sense": -1,
+      "pi": -0.0,
+      "constant": -549,
+      "name": "Line_521.1_capacity_restrictions",
+      "coefficients": [
+        {
+          "name": "Products_LIBERADO_TETO_ACABADO_521F_BL",
+          "value": 1
+        },
+        {
+          "name": "Products_LIBERADO_TETO_ACABADO_521F_SG",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "sense": -1,
+      "pi": -0.0,
+      "constant": -257,
+      "name": "Line_521.2_capacity_restrictions",
+      "coefficients": [
+        {
+          "name": "Products_LIBERADO_TETO_ACABADO_521P_BL",
+          "value": 1
+        },
+        {
+          "name": "Products_LIBERADO_TETO_ACABADO_521P_SG",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "sense": -1,
+      "pi": -0.0,
+      "constant": -515,
+      "name": "Line_551/598.1___551/598.2_capacity_restrictions",
+      "coefficients": [
+        {
+          "name": "Products_LIBERADO_TETO_ACABADO_551F_SG___22",
+          "value": 1
+        },
+        {
+          "name": "Products_LIBERADO_TETO_ACABADO_598F_SG",
+          "value": 1
+        },
+        {
+          "name": "Products_LIBERADO_TETO_ACABADO_598F_BL",
+          "value": 1
+        },
+        {
+          "name": "Products_LIBERADO_TETO_ACABADO_551F_SG___21",
+          "value": 1
+        },
+        {
+          "name": "Products_LIBERADO_TETO_ACABADO_551F_BL",
+          "value": 1
+        },
+        {
+          "name": "Products_LIBERADO_TETO_ACABADO_551P_SG",
+          "value": 1
+        },
+        {
+          "name": "Products_LIBERADO_TETO_ACABADO_551P_BL",
+          "value": 1
+        },
+        {
+          "name": "Products_LIBERADO_TETO_ACABADO_598P_BL",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "sense": -1,
+      "pi": -0.0,
+      "constant": -515,
+      "name": "Line_551/598.1_capacity_restrictions",
+      "coefficients": [
+        {
+          "name": "Products_LIBERADO_TETO_ACABADO_551F_SG___22",
+          "value": 1
+        },
+        {
+          "name": "Products_LIBERADO_TETO_ACABADO_598F_SG",
+          "value": 1
+        },
+        {
+          "name": "Products_LIBERADO_TETO_ACABADO_598F_BL",
+          "value": 1
+        },
+        {
+          "name": "Products_LIBERADO_TETO_ACABADO_551F_SG___21",
+          "value": 1
+        },
+        {
+          "name": "Products_LIBERADO_TETO_ACABADO_551F_BL",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "sense": -1,
+      "pi": -0.0,
+      "constant": -343,
+      "name": "Line_551/598.2_capacity_restrictions",
+      "coefficients": [
+        {
+          "name": "Products_LIBERADO_TETO_ACABADO_551P_SG",
+          "value": 1
+        },
+        {
+          "name": "Products_LIBERADO_TETO_ACABADO_551P_BL",
+          "value": 1
+        },
+        {
+          "name": "Products_LIBERADO_TETO_ACABADO_598P_BL",
+          "value": 1
+        }
+      ]
+    }
+  ],
+  "variables": [
+    {
+      "lowBound": 0,
+      "upBound": null,
+      "cat": "Integer",
+      "varValue": 227.0,
+      "dj": 1.0,
+      "name": "Products_LIBERADO_TETO_ACABADO_226F_BL"
+    },
+    {
+      "lowBound": 0,
+      "upBound": null,
+      "cat": "Integer",
+      "varValue": 45.0,
+      "dj": 1.0,
+      "name": "Products_LIBERADO_TETO_ACABADO_226F_SG_"
+    },
+    {
+      "lowBound": 0,
+      "upBound": null,
+      "cat": "Integer",
+      "varValue": 6.0,
+      "dj": 1.0,
+      "name": "Products_LIBERADO_TETO_ACABADO_291F_BL_c_recorte"
+    },
+    {
+      "lowBound": 0,
+      "upBound": null,
+      "cat": "Integer",
+      "varValue": 0.0,
+      "dj": 1.0,
+      "name": "Products_LIBERADO_TETO_ACABADO_291F_BL_s_recorte"
+    },
+    {
+      "lowBound": 0,
+      "upBound": null,
+      "cat": "Integer",
+      "varValue": 237.0,
+      "dj": 1.0,
+      "name": "Products_LIBERADO_TETO_ACABADO_291F_SG"
+    },
+    {
+      "lowBound": 0,
+      "upBound": null,
+      "cat": "Integer",
+      "varValue": 160.0,
+      "dj": 1.0,
+      "name": "Products_LIBERADO_TETO_ACABADO_521F_BL"
+    },
+    {
+      "lowBound": 0,
+      "upBound": null,
+      "cat": "Integer",
+      "varValue": 131.0,
+      "dj": 1.0,
+      "name": "Products_LIBERADO_TETO_ACABADO_521F_SG"
+    },
+    {
+      "lowBound": 0,
+      "upBound": null,
+      "cat": "Integer",
+      "varValue": 257.0,
+      "dj": 1.0,
+      "name": "Products_LIBERADO_TETO_ACABADO_521P_BL"
+    },
+    {
+      "lowBound": 0,
+      "upBound": null,
+      "cat": "Integer",
+      "varValue": 0.0,
+      "dj": 1.0,
+      "name": "Products_LIBERADO_TETO_ACABADO_521P_SG"
+    },
+    {
+      "lowBound": 0,
+      "upBound": null,
+      "cat": "Integer",
+      "varValue": 0.0,
+      "dj": 1.0,
+      "name": "Products_LIBERADO_TETO_ACABADO_551F_BL"
+    },
+    {
+      "lowBound": 0,
+      "upBound": null,
+      "cat": "Integer",
+      "varValue": 0.0,
+      "dj": 1.0,
+      "name": "Products_LIBERADO_TETO_ACABADO_551F_SG___21"
+    },
+    {
+      "lowBound": 0,
+      "upBound": null,
+      "cat": "Integer",
+      "varValue": 172.0,
+      "dj": 1.0,
+      "name": "Products_LIBERADO_TETO_ACABADO_551F_SG___22"
+    },
+    {
+      "lowBound": 0,
+      "upBound": null,
+      "cat": "Integer",
+      "varValue": 343.0,
+      "dj": 1.0,
+      "name": "Products_LIBERADO_TETO_ACABADO_551P_BL"
+    },
+    {
+      "lowBound": 0,
+      "upBound": null,
+      "cat": "Integer",
+      "varValue": 0.0,
+      "dj": 1.0,
+      "name": "Products_LIBERADO_TETO_ACABADO_551P_SG"
+    },
+    {
+      "lowBound": 0,
+      "upBound": null,
+      "cat": "Integer",
+      "varValue": 0.0,
+      "dj": 1.0,
+      "name": "Products_LIBERADO_TETO_ACABADO_598F_BL"
+    },
+    {
+      "lowBound": 0,
+      "upBound": null,
+      "cat": "Integer",
+      "varValue": 0.0,
+      "dj": 1.0,
+      "name": "Products_LIBERADO_TETO_ACABADO_598F_SG"
+    },
+    {
+      "lowBound": 0,
+      "upBound": null,
+      "cat": "Integer",
+      "varValue": 0.0,
+      "dj": 1.0,
+      "name": "Products_LIBERADO_TETO_ACABADO_598P_BL"
+    }
+  ],
+  "parameters": {
+    "name": "Stock_Optimation",
+    "sense": -1,
+    "status": 1,
+    "sol_status": 1
+  },
+  "sos1": [],
+  "sos2": []
+}

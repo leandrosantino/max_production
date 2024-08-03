@@ -1,0 +1,155 @@
+[
+  {
+    "sapCode": "2230210018.02",
+    "description": "LIBERADO TETO ACABADO 226F BL",
+    "line": "226",
+    "stock": 0,
+    "demand": 227,
+    "coverage": 0.0,
+    "1": 227
+  },
+  {
+    "sapCode": "2230210036.00",
+    "description": "LIBERADO TETO ACABADO 551F SG - 22",
+    "line": "551/598.1",
+    "stock": 0,
+    "demand": 8,
+    "coverage": 0.0,
+    "1": 8
+  },
+  {
+    "sapCode": "2230210046.01",
+    "description": "LIBERADO TETO ACABADO 551P SG",
+    "line": "551/598.2",
+    "stock": 77,
+    "demand": 0,
+    "coverage": 0.0,
+    "1": -77
+  },
+  {
+    "sapCode": "2230210047.01",
+    "description": "LIBERADO TETO ACABADO 551P BL",
+    "line": "551/598.2",
+    "stock": 105,
+    "demand": 0,
+    "coverage": 0.0,
+    "1": -105
+  },
+  {
+    "sapCode": "2230410016.02",
+    "description": "LIBERADO TETO ACABADO 598P BL",
+    "line": "551/598.2",
+    "stock": 49,
+    "demand": 0,
+    "coverage": 0.0,
+    "1": -49
+  },
+  {
+    "sapCode": "2230210028.02",
+    "description": "LIBERADO TETO ACABADO 598F SG",
+    "line": "551/598.1",
+    "stock": 78,
+    "demand": 0,
+    "coverage": 0.0,
+    "1": -78
+  },
+  {
+    "sapCode": "2230210029.00",
+    "description": "LIBERADO TETO ACABADO 598F BL",
+    "line": "551/598.1",
+    "stock": 113,
+    "demand": 0,
+    "coverage": 0.0,
+    "1": -113
+  },
+  {
+    "sapCode": "2230210031.01",
+    "description": "LIBERADO TETO ACABADO 521F BL",
+    "line": "521.1",
+    "stock": 80,
+    "demand": 240,
+    "coverage": 0.3333333333,
+    "1": 160
+  },
+  {
+    "sapCode": "2230210034.01",
+    "description": "LIBERADO TETO ACABADO 226F SG ",
+    "line": "226",
+    "stock": 70,
+    "demand": 115,
+    "coverage": 0.6086956522,
+    "1": 45
+  },
+  {
+    "sapCode": "2230210045.01",
+    "description": "LIBERADO TETO ACABADO 291F SG",
+    "line": "226",
+    "stock": 70,
+    "demand": 101,
+    "coverage": 0.6930693069,
+    "1": 31
+  },
+  {
+    "sapCode": "2230210043.01",
+    "description": "LIBERADO TETO ACABADO 291F BL c/recorte",
+    "line": "226",
+    "stock": 34,
+    "demand": 40,
+    "coverage": 0.85,
+    "1": 6
+  },
+  {
+    "sapCode": "2230210028.00",
+    "description": "LIBERADO TETO ACABADO 521P BL",
+    "line": "521.2",
+    "stock": 35,
+    "demand": 29,
+    "coverage": 1.2068965517,
+    "1": -6
+  },
+  {
+    "sapCode": "2230210027.00",
+    "description": "LIBERADO TETO ACABADO 521P SG",
+    "line": "521.2",
+    "stock": 71,
+    "demand": 36,
+    "coverage": 1.9722222222,
+    "1": -35
+  },
+  {
+    "sapCode": "2230210035.00",
+    "description": "LIBERADO TETO ACABADO 551F SG - 21",
+    "line": "551/598.1",
+    "stock": 50,
+    "demand": 17,
+    "coverage": 2.9411764706,
+    "1": -33
+  },
+  {
+    "sapCode": "2230210048.01",
+    "description": "LIBERADO TETO ACABADO 551F BL",
+    "line": "551/598.1",
+    "stock": 45,
+    "demand": 13,
+    "coverage": 3.4615384615,
+    "1": -32
+  },
+  {
+    "sapCode": "2230210044.01",
+    "description": "LIBERADO TETO ACABADO 291F BL s/recorte",
+    "line": "226",
+    "stock": 240,
+    "demand": 40,
+    "coverage": 6.0,
+    "1": -200
+  },
+  {
+    "sapCode": "2230210025.01",
+    "description": "LIBERADO TETO ACABADO 521F SG",
+    "line": "521.1",
+    "stock": 330,
+    "demand": 50,
+    "coverage": 6.6,
+    "1": -280
+  }
+]
