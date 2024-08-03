@@ -9,6 +9,7 @@ import { StockCountingRepository } from "@/repositories/stockCountingRepository"
 import { ProcessedProduct, ProductionPlanningOptions, CalculateIndicatorsProps, GetFinishedExternalInfoProps, ExternalInfo, CalculatedValues, GetWipExternalInfoProps } from "./DataObjects";
 import { MachineRepository } from "@/repositories/machineRepository";
 import { ObjectUtils } from "@/utils/ObjectUtils";
+import { OptimizationRepository } from "@/repositories/optimizationRepository";
 
 
 const SECONDS_IN_ONE_HOUR = 3600
@@ -20,6 +21,7 @@ export class ProductionPlanning {
     private readonly processRepository: ProcessRepository,
     private readonly elogCountingRepository: ElogCountingRepository,
     private readonly stockCountingRepository: StockCountingRepository,
+    private readonly optimizationRepository: OptimizationRepository,
     private readonly productionCountDataRepository: ProductionCountDataRepository,
     private readonly jisDataRepository: JisDataRepository,
     private readonly machineRepository: MachineRepository,
@@ -31,6 +33,7 @@ export class ProductionPlanning {
 
     await this.jisDataRepository.init(this.options.weekStartDate, this.options.date, this.options.startProductionHour)
     await this.productionCountDataRepository.init(this.options.weekStartDate, this.options.date)
+    await this.optimizationRepository.init(this.options.productiveDays, this.stockCountingRepository, this.elogCountingRepository)
 
     this.productionScriptRepository.clear()
 
@@ -69,7 +72,10 @@ export class ProductionPlanning {
         continue
       }
 
+      const minLot = this.optimizationRepository.findBySapCode(product.sapCode).value
+
       const indicators: CalculatedValues = this.calculateIndicators({
+        minLot,
         ...externalInfo,
         ...product
       })
@@ -156,16 +162,16 @@ export class ProductionPlanning {
     }
   }
 
-  private calculateIndicators({ initialStock, consumed, produced, ...props }: CalculateIndicatorsProps): CalculatedValues {
+  private calculateIndicators({ initialStock, consumed, produced, minLot, ...props }: CalculateIndicatorsProps): CalculatedValues {
     const currentStock = initialStock + produced - consumed
     const dailyDemand = Math.round(props.weekleyDemand / this.options.productiveDays)
     const currentStockInDays = currentStock / dailyDemand
     const coverage = (currentStock - dailyDemand) / dailyDemand
-    let minLot = dailyDemand * (
-      dailyDemand >= this.options.minLotCutoffPoint ?
-        this.options.lowRunner :
-        this.options.highRunner
-    );
+    // let minLot = dailyDemand * (
+    //   dailyDemand >= this.options.minLotCutoffPoint ?
+    //     this.options.lowRunner :
+    //     this.options.highRunner
+    // );
 
     minLot = this.roundDemandByQuantityPerPackage(minLot, props.quantityPerPackage)
 

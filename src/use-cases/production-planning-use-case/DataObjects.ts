@@ -8,7 +8,7 @@ export interface ExternalInfo {
   weekleyDemand: number
   initialStock: number
   consumed: number
-  produced: number
+  produced: number,
 }
 
 export interface CalculatedValues {
@@ -40,7 +40,7 @@ export type ProcessedProduct = ProductInfo & ExternalInfo & CalculatedValues
 
 export type CalculateIndicatorsProps =
   Pick<ProductInfo, 'cicleTime' | 'setupDurationInMinutes' | 'quantityPerPackage'> &
-  ExternalInfo
+  ExternalInfo & { minLot: number }
 
 export type GetFinishedExternalInfoProps = Pick<Product, 'partNumber' | 'sapCode'> & {
   multiple: Product['multiple']

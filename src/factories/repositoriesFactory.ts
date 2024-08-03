@@ -1,5 +1,6 @@
 import { JisDataRepository } from "@/repositories/JisDataRepository";
 import { MachineRepository } from "@/repositories/machineRepository";
+import { OptimizationRepository } from "@/repositories/optimizationRepository";
 import { ProcessRepository } from "@/repositories/processRepository";
 import { ProductRepository } from "@/repositories/productRepository";
 import { ProductionCountDataRepository } from "@/repositories/productionCountData";
@@ -13,3 +14,4 @@ export const productionCountDataRepository = new ProductionCountDataRepository()
 export const processRepository = new ProcessRepository()
 export const machineRepository = new MachineRepository()
 export const productRepository = new ProductRepository()
+export const optimizationRepository = new OptimizationRepository(productRepository)

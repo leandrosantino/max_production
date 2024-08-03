@@ -9,7 +9,8 @@ import {
   productionCountDataRepository,
   jisDataRepository,
   machineRepository,
-  analyticsService
+  analyticsService,
+  optimizationRepository
 } from './repositoriesFactory'
 
 
@@ -25,6 +26,7 @@ export const productionPlanning = (options: ProductionPlanningOptions) => {
     processRepository,
     elogCountingRepository,
     stockCountingRepository,
+    optimizationRepository,
     productionCountDataRepository,
     jisDataRepository,
     machineRepository,

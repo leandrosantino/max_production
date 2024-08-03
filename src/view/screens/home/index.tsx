@@ -19,7 +19,7 @@ export function Home(){
 
       <h2>DashBoard</h2>
       {isSuccess && data[0].products?.map(item => (<>
-        <div key={item.id} >{item.description} - {item.consumed}</div>
+        <div key={item.id} >{item.description} - {item.minLot}</div>
       </>))}
 
     </ScreenContainer>

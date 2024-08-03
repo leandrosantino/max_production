@@ -3,10 +3,9 @@ from pulp import *
 from sys import argv
 
 json_data = argv[1]
-print(json_data)
 safety_stock = int(argv[2])
 
-df = pd.read_json(json_data, orient='split', dtype={'sapCode': str, 'line': str})
+df = pd.read_json(json_data, dtype={'sapCode': str, 'line': str})
 
 prob = LpProblem("Stock_Optimation",LpMaximize)
 
