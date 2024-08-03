@@ -13,11 +13,11 @@ product_items = list(df['description'])
 
 lines = {
     "226": [],
-    "521.1": [],
-    "521.2": [],
-    "551/598.1": [],
-    "551/598.2": [],
-  }
+    "521-1": [],
+    "521-2": [],
+    "551/598-1": [],
+    "551/598-2": [],
+}
 
 variables = LpVariable.dicts("Products",product_items,0,cat='Integer')
 
@@ -36,13 +36,13 @@ for i, data in df.iterrows():
 
 prob += lpSum(lines['226']) <= 515, "Line 226 capacity restrictions"
 
-prob += lpSum(lines['521.1'] + lines['521.2']) <= 548, "Line 521.1 + 521.2 capacity restrictions "
-prob += lpSum(lines['521.1']) <= 549, "Line 521.1 capacity restrictions"
-prob += lpSum(lines['521.2']) <= 257, "Line 521.2 capacity restrictions"
+prob += lpSum(lines['521-1'] + lines['521-2']) <= 548, "Line 521-1 + 521-2 capacity restrictions "
+prob += lpSum(lines['521-1']) <= 549, "Line 521-1 capacity restrictions"
+prob += lpSum(lines['521-2']) <= 257, "Line 521-2 capacity restrictions"
 
-prob += lpSum(lines['551/598.1'] + lines['551/598.2']) <= 515, "Line 551/598.1 + 551/598.2 capacity restrictions"
-prob += lpSum(lines['551/598.1']) <= 515, "Line 551/598.1 capacity restrictions"
-prob += lpSum(lines['551/598.2']) <= 343, "Line 551/598.2 capacity restrictions"
+prob += lpSum(lines['551/598-1'] + lines['551/598-2']) <= 515, "Line 551/598-1 + 551/598-2 capacity restrictions"
+prob += lpSum(lines['551/598-1']) <= 515, "Line 551/598-1 capacity restrictions"
+prob += lpSum(lines['551/598-2']) <= 343, "Line 551/598-2 capacity restrictions"
 
 
 solver = pulp.PULP_CBC_CMD(msg=False)

@@ -40,7 +40,7 @@ export type ProcessedProduct = ProductInfo & ExternalInfo & CalculatedValues
 
 export type CalculateIndicatorsProps =
   Pick<ProductInfo, 'cicleTime' | 'setupDurationInMinutes' | 'quantityPerPackage'> &
-  ExternalInfo & { minLot: number }
+  ExternalInfo & { minLot: number | undefined }
 
 export type GetFinishedExternalInfoProps = Pick<Product, 'partNumber' | 'sapCode'> & {
   multiple: Product['multiple']

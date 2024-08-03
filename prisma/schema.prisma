@@ -32,6 +32,7 @@ model Product {
   multiple               Int
   setupDurationInMinutes Int
   quantityPerPackage     Int
+  line                   String
   // initialStock           Int
 
   wipSapCode String?

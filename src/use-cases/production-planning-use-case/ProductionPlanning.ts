@@ -33,7 +33,7 @@ export class ProductionPlanning {
 
     await this.jisDataRepository.init(this.options.weekStartDate, this.options.date, this.options.startProductionHour)
     await this.productionCountDataRepository.init(this.options.weekStartDate, this.options.date)
-    await this.optimizationRepository.init(this.options.productiveDays, this.stockCountingRepository, this.elogCountingRepository)
+    await this.optimizationRepository.init(this.options.productiveDays)
 
     this.productionScriptRepository.clear()
 
@@ -58,21 +58,23 @@ export class ProductionPlanning {
     }
 
     for (const product of process.products) {
+      // console.log(product.description, product.type)
 
       let externalInfo: ExternalInfo | null = null
+      let minLot = undefined
 
       if (process.type === 'wip') {
         externalInfo = this.getExternalInfoWip({ ...product, parentProcessScriptProducts })
       }
       if (process.type === 'finished') {
+        minLot = this.optimizationRepository.findBySapCode(product.sapCode)?.value
         externalInfo = this.getExternalInfoFinished(product)
       }
 
       if (externalInfo === null) {
+        // console.log('null')
         continue
       }
-
-      const minLot = this.optimizationRepository.findBySapCode(product.sapCode).value
 
       const indicators: CalculatedValues = this.calculateIndicators({
         minLot,
@@ -154,6 +156,8 @@ export class ProductionPlanning {
 
     demand = Math.ceil(demand / multiple)
 
+
+
     return {
       weekleyDemand: demand,
       initialStock: initialStock.amount,
@@ -167,20 +171,24 @@ export class ProductionPlanning {
     const dailyDemand = Math.round(props.weekleyDemand / this.options.productiveDays)
     const currentStockInDays = currentStock / dailyDemand
     const coverage = (currentStock - dailyDemand) / dailyDemand
-    // let minLot = dailyDemand * (
-    //   dailyDemand >= this.options.minLotCutoffPoint ?
-    //     this.options.lowRunner :
-    //     this.options.highRunner
-    // );
+    let calcMinLot = minLot
 
-    minLot = this.roundDemandByQuantityPerPackage(minLot, props.quantityPerPackage)
+    if (!minLot) {
+      calcMinLot = dailyDemand * (
+        dailyDemand >= this.options.minLotCutoffPoint ?
+          this.options.lowRunner :
+          this.options.highRunner
+      );
+    }
+
+    // minLot = this.roundDemandByQuantityPerPackage(minLot, props.quantityPerPackage)
 
     const piecesPerHour = SECONDS_IN_ONE_HOUR / props.cicleTime
     const setupDurationInHours = props.setupDurationInMinutes / 60
-    const productionTime = (minLot / piecesPerHour) + setupDurationInHours
+    const productionTime = (calcMinLot / piecesPerHour) + setupDurationInHours
 
 
-    return { currentStock, dailyDemand, currentStockInDays, coverage, minLot, productionTime }
+    return { currentStock, dailyDemand, currentStockInDays, coverage, minLot: calcMinLot, productionTime }
   }
 
   private roundDemandByQuantityPerPackage(demand: number, quantityPerPackage: number) {

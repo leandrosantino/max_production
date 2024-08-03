@@ -8,7 +8,7 @@ import { XlsxProvider } from "@/providers/xlsxProvider";
 const machineRepository = new MachineRepository()
 const productRepository = new ProductRepository()
 const processRepository = new ProcessRepository()
-const xlsxService = new XlsxProvider('D:/dev/productionplan/prisma/products.xlsx')
+const xlsxService = new XlsxProvider('D:/dev/max_production/prisma/products.xlsx')
 
 const machines: Omit<Machine, 'processId' | 'id'>[] = [
   { slug: 'M01', ute: 'UTE-1' },
@@ -97,6 +97,7 @@ const processes: Array<{
         setupDurationInMinutes: Number(data[8]),
         quantityPerPackage: Number(data[9]),
         processId: processIds[Number(data[10]) - 1],
+        line: data[11].toString()
         // initialStock: Number(data[11])
       })
     })

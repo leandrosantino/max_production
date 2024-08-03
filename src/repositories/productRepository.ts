@@ -20,12 +20,15 @@ export class ProductRepository {
     return product
   }
 
-  async findMany() {
+  async findMany(where?: { type: 'finished' | 'wip' }) {
     const products = prisma.product.findMany({
+      where: where ? {
+        type: where.type
+      } : {},
       include: {
         finisheds: true,
         process: true,
-        wip: true
+        wip: true,
       }
     })
     return products

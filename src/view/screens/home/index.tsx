@@ -16,12 +16,10 @@ export function Home(){
 
   return (
     <ScreenContainer>
-
       <h2>DashBoard</h2>
       {isSuccess && data[0].products?.map(item => (<>
         <div key={item.id} >{item.description} - {item.minLot}</div>
       </>))}
-
     </ScreenContainer>
   )
 }

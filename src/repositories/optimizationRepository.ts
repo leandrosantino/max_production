@@ -3,15 +3,19 @@ import { StockCountingRepository } from './stockCountingRepository';
 import { ProductRepository } from './productRepository';
 import { ElogCountingRepository } from './elogCountingRepository';
 
+
 export class OptimizationRepository {
 
   repository: { sapCode: string, value: number }[] = []
 
   constructor(
-    private readonly productRepository: ProductRepository
+    private readonly productRepository: ProductRepository,
+    private readonly stockCountingRepository: StockCountingRepository,
+    private readonly elogCountingRepository: ElogCountingRepository,
+
   ) { }
 
-  async init(days: number, stockCountingRepository: StockCountingRepository, elogCountingRepository: ElogCountingRepository,) {
+  async init(days: number) {
 
     type ScriptProps = {
       sapCode: string
@@ -23,17 +27,27 @@ export class OptimizationRepository {
 
     const optimizationData: ScriptProps[] = []
 
-    const products = await this.productRepository.findMany()
+    const products = await this.productRepository.findMany({
+      type: 'finished'
+    })
 
-    products.forEach(product => {
+    for (const product of products) {
+
+      const demand = this.elogCountingRepository.findByPartNumber(product.partNumber, days)?.total
+      const stock = this.stockCountingRepository.findBySapCode(product.sapCode)?.amount
+
+      if (!demand || !stock) {
+        continue
+      }
+
       optimizationData.push({
         description: product.description,
         sapCode: product.sapCode,
-        line: (product as any).line as string,
-        demand: elogCountingRepository.findByPartNumber(product.partNumber, days).total,
-        stock: stockCountingRepository.findBySapCode(product.sapCode).amount
+        line: product.line,
+        demand,
+        stock
       })
-    })
+    }
 
     const optimizationDataStr = JSON.stringify(optimizationData)
 
@@ -46,6 +60,8 @@ export class OptimizationRepository {
     })
 
     this.repository = JSON.parse(resp.join('\n'))
+
+    console.log(this.repository)
 
   }
 

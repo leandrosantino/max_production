@@ -40,8 +40,9 @@ export class ElogCountingRepository {
       return null
     }
 
-    if (days > findItem.demands.length || days <= 0) {
-      throw new Error('invalid days of production. required:  1-' + findItem.demands.length)
+    if (days <= 0) {
+      throw new Error(`invalid days of production. receve: ${days}, required:  1-${findItem.demands.length}`)
+      // return null
     }
 
     findItem.total = findItem.demands

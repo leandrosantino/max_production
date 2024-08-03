@@ -16,5 +16,6 @@ export interface Product {
   multiple: number
   quantityPerPackage: number
   setupDurationInMinutes: number
+  line: string
   // initialStock: number
 }

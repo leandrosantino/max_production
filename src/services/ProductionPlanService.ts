@@ -6,7 +6,9 @@ export class ProductionPlanService {
 
   @IpcQuery()
   async runProductionPlan(options: ProductionPlanningOptions) {
-    return productionPlanning(options)
+    const script = await productionPlanning(options)
+    console.log(script)
+    return script
   }
 
 }

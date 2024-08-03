@@ -10,8 +10,9 @@ import {
   jisDataRepository,
   machineRepository,
   analyticsService,
-  optimizationRepository
+  productRepository
 } from './repositoriesFactory'
+import { OptimizationRepository } from '@/repositories/optimizationRepository'
 
 
 export const productionPlanning = (options: ProductionPlanningOptions) => {
@@ -20,6 +21,15 @@ export const productionPlanning = (options: ProductionPlanningOptions) => {
 
   const stockCountingRepository = new StockCountingRepository(xlsxService)
   const elogCountingRepository = new ElogCountingRepository(xlsxServiceElog)
+
+  const stockCountingRepository2 = new StockCountingRepository(xlsxService)
+  const elogCountingRepository2 = new ElogCountingRepository(xlsxServiceElog)
+
+  const optimizationRepository = new OptimizationRepository(
+    productRepository,
+    stockCountingRepository2,
+    elogCountingRepository2
+  )
 
   const productionPlanning = new ProductionPlanning(
     productionScriptRepository,
