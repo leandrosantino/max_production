@@ -2,14 +2,14 @@ import styled from "styled-components";
 
 export const ScreenContainer = styled.div`
 
-  max-width: 1100px;
+  /* max-width: 100px; */
 
   width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
   gap: .8rem;
-  padding: 1.2rem;
+  padding: 1.4rem;
 
   &>h1{
     font-size: 2.8rem;

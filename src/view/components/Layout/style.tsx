@@ -27,7 +27,7 @@ export const Main = styled.main<{ isAuth: 'true' | 'false' }>`
 
   grid-template-areas:
   ${p => {
-    if (p.isAuth === 'false') {
+    if (false/*p.isAuth === 'false'*/) {
       return `
         "head head head"
         "content content content"
