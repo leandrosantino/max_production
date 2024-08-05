@@ -11,5 +11,7 @@ PythonShell.run('optimization.py', {
   scriptPath: process.env.SCRIPT_PATH,
   args: [str, '1']
 })
-  .then(a => console.log(JSON.parse(a.join('\n'))))
+  .then(a => a.join('\n'))
+  .then(a => JSON.parse(a))
+  .then(a => console.log(a))
   .catch(console.log)

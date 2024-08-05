@@ -19,7 +19,8 @@
       "db.studio": "prisma studio",
       "py": ".\\python\\runtime\\python.exe",
       "pip": ".\\python\\runtime\\python.exe -m pip",
-      "py.opt": ".\\python\\runtime\\python.exe python\\optimization.py"
+      "opt": "npx tsx ./scripts/teste.ts",
+      "py.opt": "npm run py .\\python\\optimization.py"
    },
    "devDependencies": {
       "@electron-forge/cli": "^7.3.0",

@@ -6,7 +6,7 @@ import { ElogCountingRepository } from './elogCountingRepository';
 
 export class OptimizationRepository {
 
-  repository: { sapCode: string, value: number }[] = []
+  repository: { desc: string, sapCode: string, value: number }[] = []
 
   constructor(
     private readonly productRepository: ProductRepository,
@@ -33,10 +33,16 @@ export class OptimizationRepository {
 
     for (const product of products) {
 
-      const demand = this.elogCountingRepository.findByPartNumber(product.partNumber, days)?.total
+      let demand = this.elogCountingRepository.findByPartNumber(product.partNumber, days)?.total
       const stock = this.stockCountingRepository.findBySapCode(product.sapCode)?.amount
 
       if (!demand || !stock) {
+        continue
+      }
+
+      demand = Math.floor(demand / days)
+
+      if (demand == 0) {
         continue
       }
 
@@ -60,8 +66,6 @@ export class OptimizationRepository {
     })
 
     this.repository = JSON.parse(resp.join('\n'))
-
-    console.log(this.repository)
 
   }
 

@@ -134,10 +134,10 @@ export function PlanViewCollapsible({ data, productionDate }: PlanViewCollapsibl
         <Table>
           <thead>
             <TableHeader>
-              <th style={ {width: "4.5rem"} }>Dia</th>
+              {/* <th style={ {width: "4.5rem"} }>Dia</th>
               <th style={ {width: "4.5rem"} }>Turno</th>
               <th style={ {width: "4.5rem"} }>Máquina</th>
-              <th style={ {flex: "1"} }>Setup</th>
+              <th style={ {flex: "1"} }>Setup</th> */}
               <th style={ {width: "35%", textAlign: 'start'} }>Descrição</th>
               <th style={ {flex: "1"} }>Estoque inicial</th>
               <th style={ {flex: "1"} }>Produzido</th>
@@ -153,10 +153,10 @@ export function PlanViewCollapsible({ data, productionDate }: PlanViewCollapsibl
             {data.products.map((product, index) => (
               product.coverage < 7 && (
                 <TableRow key={index}>
-                  <TableCell style={ {width: "4.5rem"} }>{getDayBySetupTime(product.setupTime)}</TableCell>
+                  {/* <TableCell style={ {width: "4.5rem"} }>{getDayBySetupTime(product.setupTime)}</TableCell>
                   <TableCell style={ {width: "4.5rem"} }>{getTurnBySetupTime(product.setupTime)}</TableCell>
                   <TableCell style={ {width: "4.5rem"} }>{product.machineSlug}</TableCell>
-                  <TableCell style={ {flex: "1"} }>{formatSetupTime(product.setupTime)}</TableCell>
+                  <TableCell style={ {flex: "1"} }>{formatSetupTime(product.setupTime)}</TableCell> */}
                   <TableCell style={ {width: "35%", textAlign: 'start'} }>{product.sapCode} -  {product.description}</TableCell>
                   <TableCell style={ {flex: "1"} }>{product.initialStock} p</TableCell>
                   <TableCell style={ {flex: "1"} }>{product.produced.toFixed(0)} p</TableCell>

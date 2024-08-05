@@ -6,6 +6,7 @@ json_data = argv[1]
 safety_stock = int(argv[2])
 
 df = pd.read_json(json_data, dtype={'sapCode': str, 'line': str})
+# df = pd.read_excel('python/estoque.xlsx', dtype={'sapCode': str, 'line': str})
 
 prob = LpProblem("Stock_Optimation",LpMaximize)
 
@@ -21,6 +22,7 @@ lines = {
 
 variables = LpVariable.dicts("Products",product_items,0,cat='Integer')
 
+
 prob += lpSum(variables), "Objective function"
 
 for i, data in df.iterrows():
@@ -33,6 +35,7 @@ for i, data in df.iterrows():
 
     lines[str(line)].append(variables[description])
     prob += (variables[description]>=constrant), f"Minimal Lot of production to {description}"
+    prob += (variables[description]>=0), f"lowBound of production to {description}"
 
 prob += lpSum(lines['226']) <= 515, "Line 226 capacity restrictions"
 
@@ -58,4 +61,4 @@ for i, data in df.iterrows():
 
 df['minLot'] = df['description'].map(products_to_soluction)
 
-print(pd.DataFrame({'sapCode': df['sapCode'], 'value': df['minLot']}).to_json(orient='records', indent=2))
+print(pd.DataFrame({'description': df['description'], 'sapCode': df['sapCode'], 'value': df['minLot']}).to_json(orient='records', indent=2))

@@ -58,7 +58,6 @@ export class ProductionPlanning {
     }
 
     for (const product of process.products) {
-      // console.log(product.description, product.type)
 
       let externalInfo: ExternalInfo | null = null
       let minLot = undefined
@@ -68,11 +67,11 @@ export class ProductionPlanning {
       }
       if (process.type === 'finished') {
         minLot = this.optimizationRepository.findBySapCode(product.sapCode)?.value
+        if (!minLot) minLot = 0
         externalInfo = this.getExternalInfoFinished(product)
       }
 
       if (externalInfo === null) {
-        // console.log('null')
         continue
       }
 
@@ -156,8 +155,6 @@ export class ProductionPlanning {
 
     demand = Math.ceil(demand / multiple)
 
-
-
     return {
       weekleyDemand: demand,
       initialStock: initialStock.amount,
@@ -173,7 +170,7 @@ export class ProductionPlanning {
     const coverage = (currentStock - dailyDemand) / dailyDemand
     let calcMinLot = minLot
 
-    if (!minLot) {
+    if (minLot == undefined) {
       calcMinLot = dailyDemand * (
         dailyDemand >= this.options.minLotCutoffPoint ?
           this.options.lowRunner :
