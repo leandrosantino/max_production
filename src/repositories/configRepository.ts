@@ -47,7 +47,7 @@ export class ConfigRepository {
 }
 
 // Exemplo de uso
-const filePath = path.join(process.execPath, 'config.json');
+const filePath = path.join(path.dirname(process.execPath), 'config.json');
 // const filePath = "D:\\dev\\max_production\\config.json"
 export const configRepository = new ConfigRepository(filePath);
 console.log(configRepository.getConfig(), '\n', filePath)
