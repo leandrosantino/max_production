@@ -1,8 +1,8 @@
 import { Product } from "@/domain/entities/Product"
-import { ProductionScript } from "@/use-cases/production-planning-use-case/ProductionScript"
+import { ProductionScript } from "@/domain/entities/ProductionScript"
 
 export type ProductInfo =
-  Pick<Product, 'id' | 'description' | 'partNumber' | 'sapCode' | 'cicleTime' | 'setupDurationInMinutes' | 'quantityPerPackage'>
+  Pick<Product, 'id' | 'description' | 'partNumber' | 'sapCode' | 'cicleTime' | 'setupDurationInMinutes' | 'quantityPerPackage' | 'line'>
 
 export interface ExternalInfo {
   weekleyDemand: number
@@ -17,6 +17,7 @@ export interface CalculatedValues {
   currentStockInDays: number
   coverage: number
   minLot: number
+  opt: number
   productionTime: number
 }
 

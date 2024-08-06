@@ -1,5 +1,5 @@
 import { Process } from "@/domain/entities/Process";
-import { ProductionScript } from "@/use-cases/production-planning-use-case/ProductionScript";
+import { ProductionScript } from "@/domain/entities/ProductionScript";
 import { JisDataRepository } from "@/repositories/JisDataRepository";
 import { ElogCountingRepository } from "@/repositories/elogCountingRepository";
 import { ProcessRepository } from "@/repositories/processRepository";
@@ -33,7 +33,6 @@ export class ProductionPlanning {
 
     await this.jisDataRepository.init(this.options.weekStartDate, this.options.date, this.options.startProductionHour)
     await this.productionCountDataRepository.init(this.options.weekStartDate, this.options.date)
-    await this.optimizationRepository.init(this.options.productiveDays)
 
     this.productionScriptRepository.clear()
 
@@ -41,7 +40,17 @@ export class ProductionPlanning {
     for (const process of processes) {
       await this.createScript(process)
     }
-    return this.productionScriptRepository.getAll(this.options.ute)
+
+    const script = this.productionScriptRepository.getAll(this.options.ute)
+
+    const optimization = await this.optimizationRepository.execute(script[0].products)
+    for (const product of script[0].products) {
+      const optvalue = optimization.find(i => i.sapCode === product.sapCode)
+      if (optvalue) {
+        product.opt = optvalue.value
+      }
+    }
+    return script
   }
 
   private async createScript(process: Process) {
@@ -66,8 +75,6 @@ export class ProductionPlanning {
         externalInfo = this.getExternalInfoWip({ ...product, parentProcessScriptProducts })
       }
       if (process.type === 'finished') {
-        minLot = this.optimizationRepository.findBySapCode(product.sapCode)?.value
-        if (!minLot) minLot = 0
         externalInfo = this.getExternalInfoFinished(product)
       }
 
@@ -185,7 +192,7 @@ export class ProductionPlanning {
     const productionTime = (calcMinLot / piecesPerHour) + setupDurationInHours
 
 
-    return { currentStock, dailyDemand, currentStockInDays, coverage, minLot: calcMinLot, productionTime }
+    return { currentStock, dailyDemand, currentStockInDays, coverage, minLot: calcMinLot, productionTime, opt: 0 }
   }
 
   private roundDemandByQuantityPerPackage(demand: number, quantityPerPackage: number) {

@@ -61,4 +61,4 @@ for i, data in df.iterrows():
 
 df['minLot'] = df['description'].map(products_to_soluction)
 
-print(pd.DataFrame({'description': df['description'], 'sapCode': df['sapCode'], 'value': df['minLot']}).to_json(orient='records', indent=2))
+print(pd.DataFrame({'desc': df['description'], 'sapCode': df['sapCode'], 'value': df['minLot']}).to_json(orient='records', indent=2))

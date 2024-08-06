@@ -25,11 +25,7 @@ export const productionPlanning = (options: ProductionPlanningOptions) => {
   const stockCountingRepository2 = new StockCountingRepository(xlsxService)
   const elogCountingRepository2 = new ElogCountingRepository(xlsxServiceElog)
 
-  const optimizationRepository = new OptimizationRepository(
-    productRepository,
-    stockCountingRepository2,
-    elogCountingRepository2
-  )
+  const optimizationRepository = new OptimizationRepository()
 
   const productionPlanning = new ProductionPlanning(
     productionScriptRepository,

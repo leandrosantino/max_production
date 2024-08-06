@@ -18,9 +18,12 @@ export interface ProductionScript {
     currentStockInDays: number
     coverage: number
     minLot: number,
+    opt: number
 
     productionTime: number
     setupTime: number
     machineSlug?: string
+
+    line: string
   }>
 }

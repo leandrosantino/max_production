@@ -9,6 +9,7 @@ import styled from 'styled-components';
 interface PlanViewCollapsibleProps {
   data: ProductionScript;
   productionDate: string;
+  sep: boolean
 }
 
 const CollapsibleRoot = styled(Collapsible.Root)`
@@ -47,7 +48,6 @@ const Table = styled.table`
   padding: 0.8rem;
   display: flex;
   flex-direction: column;
-  gap: 0.4rem;
 `;
 
 const TableHeader = styled.tr`
@@ -59,10 +59,32 @@ const TableHeader = styled.tr`
   align-items: center;
 `;
 
-const TableCell = styled.td<{ width?: string }>`
+const TableCell = styled.td<{ width?: string, state?: 'red'|'green'|'yellow' }>`
   width: ${(props) => props.width || 'auto'};
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: .8rem;
   font-size: 1.4rem;
+  ${p => p.state?'font-weight: 600;':''}
+  &>div{
+    width: 10px;
+    height: 10px;
+    border-radius: 100%;
+
+    background-color: ${p => {
+      switch(p.state){
+        case('green'):
+          return p.theme.colors.dark.green9
+        case('yellow'):
+          return p.theme.colors.dark.yellow9
+        case('red'):
+          return p.theme.colors.light.red11
+        default:
+          return ''
+      }
+    }};
+  }
 `;
 
 const TableRow = styled.tr`
@@ -78,7 +100,7 @@ const TableRow = styled.tr`
   }
 `;
 
-export function PlanViewCollapsible({ data, productionDate }: PlanViewCollapsibleProps) {
+export function PlanViewCollapsible({ data, productionDate, sep }: PlanViewCollapsibleProps) {
   const [open, setOpen] = useState(false);
   const now = DateTime.strDateToDateObj(productionDate);
 
@@ -110,9 +132,54 @@ export function PlanViewCollapsible({ data, productionDate }: PlanViewCollapsibl
     [now]
   );
 
-  useEffect(() => {
-    console.log(data.products);
-  }, []);
+  function getCoverageState(value: number){
+    if(value < 1) return 'red'
+    if(value >= 1 && value <=2) return 'yellow'
+    if(value > 2) return 'green'
+  }
+
+  function getByLines(products: typeof data.products){
+    const lines:Record<string, typeof data.products> = {}
+    products.forEach(product => {
+      const line = ((product as any).line as string).split('-')[0]
+      if(!lines[line]){
+        lines[line] = []
+      }
+      lines[line].push(product)
+    })
+    console.log('sep')
+
+    return Object.keys(lines).map(key => (
+      <>
+        <div style={ {marginTop: ".4rem", fontWeight: "500", fontSize: "1.4rem"} } >Linha: {key}</div>
+        <hr style={ {marginBottom: ".8rem"} } />
+        {lines[key].map((product, index) => product.coverage < 7 && dataRow(product, index))}
+      </>
+    ))
+  }
+
+  function dataRow(product: (typeof data.products)[number], index: number){
+    return (
+      <TableRow key={index} >
+      {/* <TableCell style={ {width: "4.5rem"} }>{getDayBySetupTime(product.setupTime)}</TableCell>
+      <TableCell style={ {width: "4.5rem"} }>{getTurnBySetupTime(product.setupTime)}</TableCell>
+      <TableCell style={ {width: "4.5rem"} }>{product.machineSlug}</TableCell>
+      <TableCell style={ {flex: "1"} }>{formatSetupTime(product.setupTime)}</TableCell> */}
+      <TableCell style={ {width: "40%", justifyContent: 'start'} }>{product.sapCode} -  {product.description}</TableCell>
+      <TableCell state={getCoverageState(product.currentStockInDays)} style={ {flex: "1"} }>
+        <div></div>
+        {product.currentStockInDays?.toFixed(2)} d
+      </TableCell>
+      <TableCell style={ {flex: "1"} }>{product.currentStock} p</TableCell>
+      <TableCell style={ {flex: "1"} }>{product.produced.toFixed(0)} p</TableCell>
+      <TableCell style={ {flex: "1"} }>{product.consumed.toFixed(0)} p</TableCell>
+      <TableCell style={ {flex: "1"} }>{product.initialStock} p</TableCell>
+      <TableCell style={ {flex: "1", fontWeight: 600 } }>{product.dailyDemand.toFixed(0)} p</TableCell>
+      <TableCell style={ {flex: "1"} }>{product.weekleyDemand} p</TableCell>
+      <TableCell style={ {flex: "1", fontWeight: 600} }>{sep?product.opt:product.minLot} p</TableCell>
+    </TableRow>
+    )
+  }
 
   return (
     <CollapsibleRoot open={open} onOpenChange={setOpen}>
@@ -131,44 +198,30 @@ export function PlanViewCollapsible({ data, productionDate }: PlanViewCollapsibl
         </TriggerIcons>
       </CollapsibleTrigger>
       <Collapsible.Content>
-        <Table>
+        <Table style={ {gap: sep?"0":"0.4rem"} } >
           <thead>
             <TableHeader>
               {/* <th style={ {width: "4.5rem"} }>Dia</th>
               <th style={ {width: "4.5rem"} }>Turno</th>
               <th style={ {width: "4.5rem"} }>Máquina</th>
               <th style={ {flex: "1"} }>Setup</th> */}
-              <th style={ {width: "35%", textAlign: 'start'} }>Descrição</th>
-              <th style={ {flex: "1"} }>Estoque inicial</th>
+              <th style={ {width: "40%", textAlign: 'start'} }>Descrição</th>
+              <th style={ {flex: "1"} }>Cobertura</th>
+              <th style={ {flex: "1"} }>Estoque Atual</th>
               <th style={ {flex: "1"} }>Produzido</th>
               <th style={ {flex: "1"} }>Consumido</th>
-              <th style={ {flex: "1"} }>Demanda Total</th>
+              <th style={ {flex: "1"} }>Estoque inicial</th>
               <th style={ {flex: "1"} }>Demanda Diária</th>
-              <th style={ {flex: "1"} }>Estoque Atual</th>
-              <th style={ {flex: "1"} }>Lote</th>
-              <th style={ {flex: "1"} }>Cobertura</th>
+              <th style={ {flex: "1"} }>Demanda Total</th>
+              <th style={ {flex: "1"} }>Sugestão de Planejamento</th>
             </TableHeader>
           </thead>
           <tbody>
-            {data.products.map((product, index) => (
-              product.coverage < 7 && (
-                <TableRow key={index}>
-                  {/* <TableCell style={ {width: "4.5rem"} }>{getDayBySetupTime(product.setupTime)}</TableCell>
-                  <TableCell style={ {width: "4.5rem"} }>{getTurnBySetupTime(product.setupTime)}</TableCell>
-                  <TableCell style={ {width: "4.5rem"} }>{product.machineSlug}</TableCell>
-                  <TableCell style={ {flex: "1"} }>{formatSetupTime(product.setupTime)}</TableCell> */}
-                  <TableCell style={ {width: "35%", textAlign: 'start'} }>{product.sapCode} -  {product.description}</TableCell>
-                  <TableCell style={ {flex: "1"} }>{product.initialStock} p</TableCell>
-                  <TableCell style={ {flex: "1"} }>{product.produced.toFixed(0)} p</TableCell>
-                  <TableCell style={ {flex: "1"} }>{product.consumed.toFixed(0)} p</TableCell>
-                  <TableCell style={ {flex: "1"} }>{product.weekleyDemand} p</TableCell>
-                  <TableCell style={ {flex: "1"} }>{product.dailyDemand.toFixed(0)} p</TableCell>
-                  <TableCell style={ {flex: "1"} }>{product.currentStock} p</TableCell>
-                  <TableCell style={ {flex: "1"} }>{product.minLot} p</TableCell>
-                  <TableCell style={ {flex: "1"} }>{product.currentStockInDays?.toFixed(2)} d</TableCell>
-                </TableRow>
-              )
-            ))}
+            {
+              sep
+                ?getByLines(data.products)
+                :data.products.map((product, index) => ( product.coverage < 7 && dataRow(product, index)))
+            }
           </tbody>
         </Table>
       </Collapsible.Content>

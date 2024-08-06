@@ -4,24 +4,26 @@ import React, { useState, startTransition, useCallback, useEffect } from 'react'
 import styled from 'styled-components'
 import { api } from '@/view/query'
 import { ScreenContainer } from '@/view/components/containers/ScreenContainer'
-import { ProductionScript } from '@/use-cases/production-planning-use-case/ProductionScript'
+import { ProductionScript } from '@/domain/entities/ProductionScript'
 
 const Form = styled.form`
   width: 100%;
+  max-width: 900px;
   display: flex;
   align-items: flex-end;
   justify-content: center;
   gap: .8rem;
   font-size: 1.4rem;
+  margin-bottom: 1.2rem;
 `;
 
 const FormField = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
   flex-direction: column;
   width: 100%;
   min-height: fit-content;
-  height: 6rem;
+  /* height: 6rem; */
 `;
 
 const Label = styled.label`
@@ -33,6 +35,7 @@ const Input = styled.input`
   padding: .4rem;
   border: 1px solid ${p => p.theme.colors.dark.gray5};;
   border-radius: .4rem;
+  font-size: 1.4rem;
 `;
 
 const Select = styled.select`
@@ -40,6 +43,7 @@ const Select = styled.select`
   padding: .4rem;
   border: 1px solid ${p => p.theme.colors.dark.gray5};;
   border-radius: .4rem;
+  font-size: 1.4rem;
 `;
 
 const Button = styled.button`
@@ -48,6 +52,7 @@ const Button = styled.button`
   border: 2px solid #1d4ed8;
   color: #1d4ed8;
   font-weight: 500;
+  font-size: 1.4rem;
   background-color: transparent;
   &:hover {
     background-color: #1d4ed8;
@@ -58,7 +63,7 @@ const Button = styled.button`
 const Container = styled.div`
   width: 100%;
   /* max-width: 1400px; */
-  height: auto;
+  height: calc(100vh - 200px);
   gap: 0.8rem;
   display: flex;
   flex-direction: column;
@@ -96,7 +101,7 @@ export function Home() {
   const now = new Date();
 
   const [scripts, setScripts] = useState<ProductionScript[]>([]);
-  const [productiveDays, setProductiveDays] = useState<number>(6);
+  const [productiveDays, setProductiveDays] = useState<number>(7);
   const [highRunner, setHighRunner] = useState<number>(productiveDays);
   const [lowRunner, setLowRunner] = useState<number>(productiveDays / 2);
   const [startProductionHour, setStartProductionHour] = useState<string>('06:10');
@@ -135,7 +140,7 @@ export function Home() {
   return (
     <ScreenContainer>
       <Form>
-        <FormField>
+        {/* <FormField>
           <Label>LowRunner:</Label>
           <Input
             type="number"
@@ -152,7 +157,7 @@ export function Home() {
             disabled
             onChange={(e) => startTransition(() =>  setHighRunner(Number(e.target.value)))}
           />
-        </FormField>
+        </FormField> */}
         <FormField>
           <Label>Dias de Produção:</Label>
           <Input
@@ -185,7 +190,7 @@ export function Home() {
             onChange={(e) => startTransition(() => setStartProductionHour(e.target.value))}
           />
         </FormField>
-        <FormField>
+        {/* <FormField>
           <Label>UTE:</Label>
           <Select value={ute} onChange={(e) => setUte(e.target.value)}>
             <option value=""> ----- </option>
@@ -195,7 +200,7 @@ export function Home() {
             <option value="UTE-4">UTE-4</option>
             <option value="UTE-5">UTE-5</option>
           </Select>
-        </FormField>
+        </FormField> */}
         <Button type="button" onClick={() => getProductionScript()}>
           Atualizar
         </Button>
@@ -208,7 +213,7 @@ export function Home() {
           </LoadingContainer>
         ) : (
           scripts.map((entry, index) => (
-            <PlanViewCollapsible productionDate={date} key={index} data={entry} />
+            <PlanViewCollapsible productionDate={date} key={index} sep={index==0} data={entry} />
           ))
         )}
       </Container>
