@@ -1,38 +1,30 @@
-import { prisma } from "@/prisma";
 import { Machine } from "@/domain/entities/Machine";
+import { repositories } from "@/infra/repositories";
 
 
 export class MachineRepository {
   async create({ processId, ...data }: Omit<Machine, 'process' | 'id'>) {
-    const machine = await prisma.machine.create({
-      data: {
-        ...data,
-        ...processId ? {
-          process: {
-            connect: { id: processId }
-          }
-        } : {}
-      }
-    })
+    const machine = repositories.machine.create({ processId, ...data })
+    await repositories.machine.save(machine)
     return machine
   }
 
   async findMany() {
-    const machines = await prisma.machine.findMany()
+    const machines = await repositories.machine.find()
     return machines
   }
 
   async findById(id: Machine['id']) {
-    const machine = await prisma.machine.findUnique({
-      where: { id }
+    const machine = await repositories.machine.findOneBy({
+      id
     })
     return machine
   }
 
   async findBySlug(slug: Machine['slug']) {
-    const machine = await prisma.machine.findUnique({
+    const machine = await repositories.machine.findOne({
       where: { slug },
-      include: {
+      relations: {
         acceptedProducts: true
       }
     })

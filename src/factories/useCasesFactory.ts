@@ -10,20 +10,20 @@ import {
   jisDataRepository,
   machineRepository,
   analyticsService,
-  productRepository
 } from './repositoriesFactory'
 import { OptimizationRepository } from '@/repositories/optimizationRepository'
+import { configRepository } from '@/repositories/configRepository'
 
 
 export const productionPlanning = (options: ProductionPlanningOptions) => {
-  const xlsxService = new XlsxProvider(process.env.XLSX_FILE_DIR || '')
-  const xlsxServiceElog = new XlsxProvider(process.env.ELOG_FILE_DIR || '')
+
+  const config = configRepository.getConfig()
+
+  const xlsxService = new XlsxProvider(config.xlsxFileDir || '')
+  const xlsxServiceElog = new XlsxProvider(config.elogFileDir || '')
 
   const stockCountingRepository = new StockCountingRepository(xlsxService)
   const elogCountingRepository = new ElogCountingRepository(xlsxServiceElog)
-
-  const stockCountingRepository2 = new StockCountingRepository(xlsxService)
-  const elogCountingRepository2 = new ElogCountingRepository(xlsxServiceElog)
 
   const optimizationRepository = new OptimizationRepository()
 

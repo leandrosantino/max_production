@@ -5,6 +5,8 @@ import { ProductRepository } from "@/repositories/productRepository";
 import { ProcessRepository } from "@/repositories/processRepository";
 import { XlsxProvider } from "@/providers/xlsxProvider";
 
+import { database } from '../src/infra/database';
+
 const machineRepository = new MachineRepository()
 const productRepository = new ProductRepository()
 const processRepository = new ProcessRepository()
@@ -63,7 +65,7 @@ const processes: Array<{
   ]
 
   ; (async () => {
-
+    await database.initialize()
 
     for (const machine of machines) {
       const createdMachine = await machineRepository.create(machine)

@@ -3,8 +3,7 @@ import path from 'path';
 import { createFileRoute, createURLRoute } from 'electron-router-dom';
 import 'reflect-metadata'
 import { servicesFactory } from './factories/servicesFactory';
-import 'dotenv/config'
-import { productionPlanning } from '@/factories/useCasesFactory'
+import { database } from './infra/database';
 
 if (require('electron-squirrel-startup')) {
   app.quit();
@@ -43,6 +42,7 @@ const createWindow = () => {
   mainWindow.setMenuBarVisibility(false)
 
   mainWindow.once('ready-to-show', async () => {
+    await database.initialize()
     servicesFactory()
     mainWindow?.show()
     mainWindow?.maximize()

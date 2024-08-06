@@ -1,6 +1,8 @@
 import { PythonShell } from 'python-shell'
 import { z } from 'zod'
 import { ProductionScript } from '@/domain/entities/ProductionScript';
+import { config } from 'process';
+import { configRepository } from './configRepository';
 
 type ScriptProps = {
   sapCode: string
@@ -39,11 +41,13 @@ export class OptimizationRepository {
 
     const optimizationDataStr = JSON.stringify(this.optimizationData)
 
+    const config = configRepository.getConfig()
+
     const row = await PythonShell.run('optimization.py', {
       mode: 'text',
-      pythonPath: process.env.PYTHON_PATH,
+      pythonPath: config.pythonPath,
       pythonOptions: ['-u'],
-      scriptPath: process.env.SCRIPT_PATH,
+      scriptPath: config.scriptPath,
       args: [optimizationDataStr, '1']
     })
 

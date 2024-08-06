@@ -1,0 +1,7 @@
+{
+  "databaseUrl": "D:/dev/max_production/database/database.sqlite",
+  "elogFileDir": "W:\\06. Sistema de Apontamento de Produção\\ELOG\\elog.xlsx",
+  "xlsxFileDir": "W:\\06. Sistema de Apontamento de Produção\\ESTOQUE\\estoque.xlsx",
+  "pythonPath": "D:/dev/max_production/python/runtime/python.exe",
+  "scriptPath": "D:/dev/max_production/python"
+}
