@@ -4,6 +4,7 @@ import { createFileRoute, createURLRoute } from 'electron-router-dom';
 import 'reflect-metadata'
 import { servicesFactory } from './factories/servicesFactory';
 import { database } from './infra/database';
+import '@/repositories/configRepository'
 
 if (require('electron-squirrel-startup')) {
   app.quit();
@@ -11,7 +12,7 @@ if (require('electron-squirrel-startup')) {
 const createWindow = () => {
   (globalThis as any).currentModalWindow = null;
   (globalThis as any).mainWindow = new BrowserWindow({
-    title: 'Ordens de Serviço',
+    title: 'Planejamento de Produção',
     minHeight: 750,
     minWidth: 1400,
     show: false,

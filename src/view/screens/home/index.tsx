@@ -114,7 +114,7 @@ export function Home() {
   const [isLoading, setLoading] = useState(false);
 
   useEffect(() => {
-    // getProductionScript();
+    getProductionScript();
   }, []);
 
   const getProductionScript = useCallback(async () => {

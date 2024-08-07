@@ -2,7 +2,7 @@ import { DateTransformer } from '@/transformers/DateTransformer';
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToOne, JoinColumn, Unique, ManyToMany, JoinTable } from 'typeorm';
 
 // Machine Entity
-@Entity()
+@Entity({ name: 'machine' })
 export class Machine {
   @PrimaryGeneratedColumn()
   id: number;
@@ -25,7 +25,7 @@ export class Machine {
 }
 
 // Product Entity
-@Entity()
+@Entity({ name: 'product' })
 export class Product {
   @PrimaryGeneratedColumn()
   id: number;
@@ -83,7 +83,7 @@ export class Product {
 }
 
 // Process Entity
-@Entity()
+@Entity({ name: 'process' })
 export class Process {
   @PrimaryGeneratedColumn()
   id: number;
@@ -115,7 +115,7 @@ export class Process {
 }
 
 // Production Entity
-@Entity()
+@Entity({ name: 'production' })
 export class Production {
   @PrimaryGeneratedColumn()
   id: number;

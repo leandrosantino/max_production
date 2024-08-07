@@ -1,24 +1,31 @@
+import sqlite3 from 'sqlite3';
+import { Database, open } from 'sqlite';
 import { ProductionCountData } from '@/domain/entities/ProductionCountData';
-import { repositories } from '@/infra/repositories';
+import { configRepository } from './configRepository';
 
 export class ProductionCountDataRepository {
   private repository: Record<string, ProductionCountData> = {};
+  private db: Database<sqlite3.Database, sqlite3.Statement>
 
   constructor() { }
 
   async init(starts: string, ends: string) {
+    this.repository = {}
     try {
-      const [year, month, day] = this.formatDate(ends);
+      this.db = await open({
+        filename: configRepository.getConfig().prodDatabaseUrl,
+        driver: sqlite3.Database
+      });
 
-      const production = await repositories.production.createQueryBuilder('production')
-        .select('production.sapcode')
-        .addSelect('SUM(production.quantity)', 'quantity')
-        .where('production.date BETWEEN :starts AND :ends', {
-          starts: new Date(starts),
-          ends: new Date(year, month - 1, day, 20, 59, 59, 999)
-        })
-        .groupBy('production.sapcode')
-        .getRawMany();
+      const startDateEpoch = this.dateToEpoch(starts);
+      const endDateEpoch = this.dateToEpoch(ends, true);
+
+      const production = await this.db.all(`
+        SELECT production.sapcode, SUM(production.quantity) as quantity
+        FROM production
+        WHERE production.date BETWEEN ? AND ?
+        GROUP BY production.sapcode
+      `, [startDateEpoch, endDateEpoch]);
 
       production.forEach(item => {
         this.repository[item.sapcode] = {
@@ -27,29 +34,19 @@ export class ProductionCountDataRepository {
       });
     } catch (e) {
       console.error(e);
+    } finally {
+      if (this.db) {
+        await this.db.close();
+      }
     }
   }
 
-  async getRecents() {
-    const data = await repositories.production.find({
-      order: {
-        id: 'DESC'
-      },
-      take: 30
-    });
-    return data;
+  private dateToEpoch(date: string, endOfDay: boolean = false): number {
+    const [year, month, day] = this.formatDate(date);
+    const dateObj = endOfDay ? new Date(year, month - 1, day, 23, 59, 59, 999) : new Date(year, month - 1, day);
+    return dateObj.getTime();
   }
 
-  async create(params: {
-    sapcode: string;
-    quantity: number;
-    description: string;
-    packcode: string;
-  }) {
-    const data = repositories.production.create(params);
-    await repositories.production.save(data);
-    return data;
-  }
 
   getAll() {
     return this.repository;

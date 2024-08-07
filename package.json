@@ -6,8 +6,8 @@
    "main": ".vite/build/main.js",
    "scripts": {
       "start": "electron-forge start",
-      "package": "electron-forge package",
       "make": "electron-forge make",
+      "package": "electron-forge package && npm run copy",
       "publish": "electron-forge publish",
       "lint": "eslint --ext .ts,.tsx .",
       "typeorm": "typeorm-ts-node-commonjs",
@@ -17,7 +17,8 @@
       "py": ".\\python\\runtime\\python.exe",
       "pip": ".\\python\\runtime\\python.exe -m pip",
       "opt": "npx tsx ./scripts/teste.ts",
-      "py.opt": "npm run py .\\python\\optimization.py"
+      "py.opt": "npm run py .\\python\\optimization.py",
+      "copy": "npx tsx ./scripts/copy.ts"
    },
    "devDependencies": {
       "@electron-forge/cli": "^7.3.0",
@@ -84,9 +85,9 @@
       "react-hook-form": "^7.51.1",
       "react-router-dom": "^6.22.3",
       "reflect-metadata": "^0.1.13",
+      "sqlite": "^5.1.1",
       "sqlite3": "^5.0.2",
       "styled-components": "^6.1.11",
-      "terser": "^5.31.1",
       "ts-morph": "^23.0.0",
       "typeorm": "0.3.20",
       "zod": "^3.23.8"
