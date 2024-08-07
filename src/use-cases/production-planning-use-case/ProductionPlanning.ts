@@ -38,7 +38,7 @@ export class ProductionPlanning {
 
     const processes = await this.processRepository.findMany()
     for (const process of processes) {
-      await this.createScript(process)
+      await this.createScript((process as any) as Process)
     }
 
     const script = this.productionScriptRepository.getAll(this.options.ute)
