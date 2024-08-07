@@ -34,6 +34,8 @@ export class ProductionPlanning {
     await this.jisDataRepository.init(this.options.weekStartDate, this.options.date, this.options.startProductionHour)
     await this.productionCountDataRepository.init(this.options.weekStartDate, this.options.date)
 
+    // console.log(this.options)
+
     this.productionScriptRepository.clear()
 
     const processes = await this.processRepository.findMany()
@@ -146,7 +148,7 @@ export class ProductionPlanning {
 
       if (findFinishedProduct) {
         demand += findFinishedProduct.weekleyDemand
-        consumed += findFinishedProduct.consumed
+        consumed += findFinishedProduct.produced
       }
     }
 
@@ -185,7 +187,7 @@ export class ProductionPlanning {
       );
     }
 
-    // minLot = this.roundDemandByQuantityPerPackage(minLot, props.quantityPerPackage)
+    minLot = this.roundDemandByQuantityPerPackage(minLot, props.quantityPerPackage)
 
     const piecesPerHour = SECONDS_IN_ONE_HOUR / props.cicleTime
     const setupDurationInHours = props.setupDurationInMinutes / 60

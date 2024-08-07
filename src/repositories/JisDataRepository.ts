@@ -40,9 +40,10 @@ export class JisDataRepository {
           IMPRESSO: "I" | "N",
           ID: number
         }>(`Moncis`, (err, result) => {
-          result?.recordset.forEach(item => {
+          result?.recordset.forEach((item, index) => {
             const date = new DateTime(item.DTE_IMPORT)
             const endsDate = new Date(year, month - 1, day, startHour - 4, 59, 59, 999)
+            // index == 1 && console.log(date.toISOString(), ' - ', endsDate.toISOString())
             if (date.isBefore(endsDate)) {
               return
             }

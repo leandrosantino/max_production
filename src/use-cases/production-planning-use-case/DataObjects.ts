@@ -49,5 +49,5 @@ export type GetFinishedExternalInfoProps = Pick<Product, 'partNumber' | 'sapCode
 
 export type GetWipExternalInfoProps = GetFinishedExternalInfoProps & {
   finisheds: Product[],
-  parentProcessScriptProducts: Array<Pick<ProductionScript['products'][number], 'sapCode' | 'weekleyDemand' | 'consumed'>>
+  parentProcessScriptProducts: Array<Pick<ProductionScript['products'][number], 'sapCode' | 'weekleyDemand' | 'consumed' | 'produced'>>
 }
