@@ -42,7 +42,11 @@ const createWindow = () => {
   mainWindow.setMenuBarVisibility(false)
 
   mainWindow.once('ready-to-show', async () => {
-    await database.initialize()
+    try {
+      await database.initialize()
+    } catch (e) {
+      console.log((e as Error).message)
+    }
     servicesFactory()
     mainWindow?.show()
     mainWindow?.maximize()

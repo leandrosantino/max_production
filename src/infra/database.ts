@@ -4,7 +4,7 @@ import { configRepository } from "@/repositories/configRepository"
 
 export const database = new DataSource({
   type: "sqlite",
-  database: configRepository.getConfig().databaseUrl,
+  database: "database/database.sqlite",
   synchronize: true,
   logging: false,
   entities: [Machine, Product, Process, Production],
