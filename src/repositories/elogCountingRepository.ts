@@ -5,17 +5,19 @@ export class ElogCountingRepository {
 
   repository: ElogCounting[] = []
 
+  startDate: Date
+
   constructor(
     private readonly xlsxProvider: XlsxProvider
   ) {
     const sheet = this.xlsxProvider.read({ sheetIndex: 0 })
     try {
-      const date = this.excelDateToJSDate(Number(sheet[3][6]))
+      this.startDate = this.excelDateToJSDate(Number(sheet[3][6]))
       this.repository = sheet
         .filter(item => !isNaN(Number(item[0])))
         .filter(item => item[5].toString().startsWith('ADLER'))
         .map((item) => ({
-          date,
+          date: this.startDate,
           partNumber: item[0].toString(),
           description: item[1].toString(),
           demands: item.slice(6, 13).map((item, index) => ({
@@ -24,9 +26,13 @@ export class ElogCountingRepository {
           })),
           total: (item.slice(6, 13) as number[]).reduce((acc, value) => acc + value, 0)
         }))
+      console.log(this.repository)
     } catch { }
   }
 
+  getStartDate() {
+    return this.startDate
+  }
 
   findMany() {
     return this.repository
