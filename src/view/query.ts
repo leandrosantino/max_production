@@ -6,13 +6,13 @@ export const api = {
             query: (options: import("@/use-cases/production-planning-use-case/DataObjects").ProductionPlanningOptions) => {
                 return useQuery({
                     queryKey: ['runProductionPlan', { options }] as const,
-                    queryFn: ({queryKey}):Promise<import("@/domain/entities/ProductionScript").ProductionScript[]> => {
+                    queryFn: ({queryKey}):Promise<{ script: import("@/domain/entities/ProductionScript").ProductionScript[]; elogDate: Date; }> => {
                         const [_, { options }] = queryKey
                         return window.app.invoke('runProductionPlan', options)
                     }
                 })
             },
-            invoke: async (options: import("@/use-cases/production-planning-use-case/DataObjects").ProductionPlanningOptions):Promise<import("@/domain/entities/ProductionScript").ProductionScript[]> => await window.app.invoke('runProductionPlan', options)
+            invoke: async (options: import("@/use-cases/production-planning-use-case/DataObjects").ProductionPlanningOptions):Promise<{ script: import("@/domain/entities/ProductionScript").ProductionScript[]; elogDate: Date; }> => await window.app.invoke('runProductionPlan', options)
         },
                 
     },

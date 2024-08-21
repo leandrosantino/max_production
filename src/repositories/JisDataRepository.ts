@@ -30,8 +30,11 @@ export class JisDataRepository {
         const result = new sql.Request()
         const [year, month, day] = ends.split('-').map(i => Number(i))
         // const startHour = 6
-        result.input('Param1', this.formatDate(starts))
-        result.input('Param2', this.formatDate(ends))
+        result.input('Param1', this.formatDate(starts.split('T')[0]))
+        result.input('Param2', this.formatDate(ends.split('T')[0]))
+
+        console.log(starts, ends)
+
         result.execute<{
           CODFIAT: string,
           DTE_IMPORT: string,
@@ -42,11 +45,14 @@ export class JisDataRepository {
         }>(`Moncis`, (err, result) => {
           result?.recordset.forEach((item, index) => {
             const date = new DateTime(item.DTE_IMPORT)
-            const endsDate = new Date(year, month - 1, day, startHour - 4, 59, 59, 999)
-            // index == 1 && console.log(date.toISOString(), ' - ', endsDate.toISOString())
-            if (date.isBefore(endsDate)) {
+            const startsDate = DateTime.strDateToDateObj(starts).minusHours(3)
+            const endsDate = DateTime.strDateToDateObj(ends).minusHours(3)
+
+            if (date.isAfter(startsDate) || date.isBefore(endsDate)) {
               return
             }
+
+            console.log(date, ' - ', startsDate, endsDate)
             if (this.repository[this.normalizePartNumber(item.CODFIAT)] === undefined) {
               this.repository[this.normalizePartNumber(item.CODFIAT)] = {
                 count: 1,

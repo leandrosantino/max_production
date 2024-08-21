@@ -31,8 +31,8 @@ export class ProductionPlanning {
 
   async execute() {
 
-    await this.jisDataRepository.init(this.options.weekStartDate, this.options.date, this.options.startProductionHour)
-    await this.productionCountDataRepository.init(this.options.weekStartDate, this.options.date)
+    await this.jisDataRepository.init(this.options.startDate, this.options.endsDate, this.options.startProductionHour)
+    await this.productionCountDataRepository.init(this.options.startDate, this.options.endsDate)
 
     // console.log(this.options)
 

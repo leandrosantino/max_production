@@ -15,7 +15,7 @@ import { OptimizationRepository } from '@/repositories/optimizationRepository'
 import { configRepository } from '@/repositories/configRepository'
 
 
-export const productionPlanning = (options: ProductionPlanningOptions) => {
+export const productionPlanning = async (options: ProductionPlanningOptions) => {
 
   const config = configRepository.getConfig()
 
@@ -40,6 +40,6 @@ export const productionPlanning = (options: ProductionPlanningOptions) => {
     options
   )
 
-  return productionPlanning.execute()
+  return { script: await productionPlanning.execute(), elogDate: elogCountingRepository.getStartDate() }
 }
 

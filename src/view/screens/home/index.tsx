@@ -99,6 +99,8 @@ const Spinner = styled.div`
 
 export function Home() {
   const now = new Date();
+  const startDay = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0, 0)
+  const endsDay = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59, 999)
 
   const [scripts, setScripts] = useState<ProductionScript[]>([]);
   const [productiveDays, setProductiveDays] = useState<number>(7);
@@ -106,15 +108,17 @@ export function Home() {
   const [lowRunner, setLowRunner] = useState<number>(productiveDays / 2);
   const [startProductionHour, setStartProductionHour] = useState<string>('06:10');
 
-  const [date, setDate] = useState<string>(DateTime.dateObjToStrDate(now));
-  const [weekStartDate, setWeekStartDate] = useState<string>(DateTime.dateObjToStrDate(now));
+  const [startDate, setStartDate] = useState<string>(DateTime.dateObjToStrDate(startDay));
+  const [endsDate, setEndsDate] = useState<string>(DateTime.dateObjToStrDate(endsDay));
 
   const [ute, setUte] = useState<string>('');
 
   const [isLoading, setLoading] = useState(false);
 
+  const [elogDate, setElogDate] = useState('')
+
   useEffect(() => {
-    getProductionScript();
+    // getProductionScript();
   }, []);
 
   const getProductionScript = useCallback(async () => {
@@ -126,16 +130,17 @@ export function Home() {
       productiveDays,
       startProductionHour: DateTime.timeStringToFractional(startProductionHour),
       ute,
-      date,
-      weekStartDate,
+      endsDate: endsDate,
+      startDate: startDate,
       minLotCutoffPoint: 30
     });
 
     console.clear();
-    setScripts(data);
+    setScripts(data.script);
+    setElogDate(new Date(String(data.elogDate)).toLocaleDateString())
     setLoading(false);
 
-  }, [highRunner, lowRunner, productiveDays, startProductionHour, date, ute, weekStartDate]);
+  }, [highRunner, lowRunner, productiveDays, startProductionHour, endsDate, ute, startDate]);
 
   return (
     <ScreenContainer>
@@ -148,16 +153,15 @@ export function Home() {
             disabled
             onChange={(e) => startTransition(() => setLowRunner(Number(e.target.value)) )}
           />
-        </FormField>
+        </FormField>*/}
         <FormField>
-          <Label>HighRunner:</Label>
+          <Label>Data E-log</Label>
           <Input
-            type="number"
-            value={highRunner}
+            type="text"
+            value={elogDate}
             disabled
-            onChange={(e) => startTransition(() =>  setHighRunner(Number(e.target.value)))}
           />
-        </FormField> */}
+        </FormField>
         <FormField>
           <Label>Dias de Produção:</Label>
           <Input
@@ -169,17 +173,17 @@ export function Home() {
         <FormField>
           <Label>Inicio da Sem.:</Label>
           <Input
-            type="date"
-            value={weekStartDate}
-            onChange={(e) => startTransition(() =>  setWeekStartDate(e.target.value))}
+            type="datetime-local"
+            value={startDate}
+            onChange={(e) => startTransition(() =>  setStartDate(e.target.value))}
           />
         </FormField>
         <FormField>
           <Label>Data do Plan.:</Label>
           <Input
-            type="date"
-            value={date}
-            onChange={(e) => startTransition(() => setDate(e.target.value))}
+            type="datetime-local"
+            value={endsDate}
+            onChange={(e) => startTransition(() => setEndsDate(e.target.value))}
           />
         </FormField>
         <FormField>
@@ -213,7 +217,7 @@ export function Home() {
           </LoadingContainer>
         ) : (
           scripts.map((entry, index) => (
-            <PlanViewCollapsible productionDate={date} key={index} sep={index==0} data={entry} />
+            <PlanViewCollapsible productionDate={endsDate} key={index} sep={index==0} data={entry} />
           ))
         )}
       </Container>

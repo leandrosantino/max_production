@@ -26,7 +26,6 @@ export class ElogCountingRepository {
           })),
           total: (item.slice(6, 13) as number[]).reduce((acc, value) => acc + value, 0)
         }))
-      console.log(this.repository)
     } catch { }
   }
 

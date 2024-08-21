@@ -32,8 +32,8 @@ export interface ProductionPlanningOptions {
   highRunner: number,
   minLotCutoffPoint: number
   ute?: string,
-  date: string
-  weekStartDate: string,
+  endsDate: string
+  startDate: string,
   startProductionHour: number
 }
 

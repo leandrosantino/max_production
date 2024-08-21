@@ -53,6 +53,16 @@ export class DateTime extends Date {
     return this
   }
 
+  minusHours(hours: number) {
+    this.setHours(this.getHours() - hours)
+    return this
+  }
+
+  minusMinutes(minutes: number) {
+    this.setMinutes(this.getMinutes() - minutes)
+    return this
+  }
+
   plusMonth(months: number) {
     this.setMonth(this.getMonth() + months)
     return this
@@ -111,15 +121,19 @@ export class DateTime extends Date {
   }
 
   static strDateToDateObj(strDate: string) {
-    const [year, month, day] = strDate.split('-').map(e => Number(e))
-    return new Date(year, month - 1, day)
+    const [date, time] = strDate.split('T')
+    const [year, month, day] = date.split('-').map(e => Number(e))
+    const [hours, minutes] = time.split(':').map(i => Number(i))
+    return new DateTime(year, month - 1, day, hours, minutes)
   }
 
   static dateObjToStrDate(date: Date) {
     const year = date.getFullYear()
     const month = (date.getMonth() + 1).toString().padStart(2, '0')
     const day = date.getDate().toString().padStart(2, '0')
-    return `${year}-${month}-${day}`
+    const hours = date.getHours().toString().padStart(2, '0')
+    const minutes = date.getMinutes().toString().padStart(2, '0')
+    return `${year}-${month}-${day}T${hours}:${minutes}`
   }
 
   static getTurnBtDate(date: Date) {
@@ -146,7 +160,7 @@ export class DateTime extends Date {
     if (minutes === 0) {
       return hours
     }
-    return hours + minutes / 60
+    return hours + (minutes / 60)
   }
 
 }
