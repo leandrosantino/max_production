@@ -15,6 +15,8 @@ import { OptimizationRepository } from '@/repositories/optimizationRepository'
 import { configRepository } from '@/repositories/configRepository'
 
 
+export let elogCountingRepository = {} as ElogCountingRepository
+
 export const productionPlanning = async (options: ProductionPlanningOptions) => {
 
   const config = configRepository.getConfig()
@@ -23,7 +25,7 @@ export const productionPlanning = async (options: ProductionPlanningOptions) => 
   const xlsxServiceElog = new XlsxProvider(config.elogFileDir || '')
 
   const stockCountingRepository = new StockCountingRepository(xlsxService)
-  const elogCountingRepository = new ElogCountingRepository(xlsxServiceElog)
+  elogCountingRepository = new ElogCountingRepository(xlsxServiceElog, options.productiveDays)
 
   const optimizationRepository = new OptimizationRepository()
 

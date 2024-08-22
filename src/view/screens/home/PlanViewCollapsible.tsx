@@ -4,6 +4,7 @@ import * as Collapsible from "@radix-ui/react-collapsible";
 import { DoubleArrowRightIcon, DropdownMenuIcon } from "@radix-ui/react-icons";
 import React from "react";
 import { useCallback, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from 'styled-components';
 
 interface PlanViewCollapsibleProps {
@@ -103,6 +104,7 @@ const TableRow = styled.tr`
 export function PlanViewCollapsible({ data, productionDate, sep }: PlanViewCollapsibleProps) {
   const [open, setOpen] = useState(false);
   const now = DateTime.strDateToDateObj(productionDate);
+  const navigate = useNavigate()
 
   const formatSetupTime = useCallback(
     (setupTime: number) => {
@@ -160,7 +162,7 @@ export function PlanViewCollapsible({ data, productionDate, sep }: PlanViewColla
 
   function dataRow(product: (typeof data.products)[number], index: number){
     return (
-      <TableRow key={index} >
+      <TableRow key={index} onClick={() => navigate('item/leandro')} >
       {/* <TableCell style={ {width: "4.5rem"} }>{getDayBySetupTime(product.setupTime)}</TableCell>
       <TableCell style={ {width: "4.5rem"} }>{getTurnBySetupTime(product.setupTime)}</TableCell>
       <TableCell style={ {width: "4.5rem"} }>{product.machineSlug}</TableCell>

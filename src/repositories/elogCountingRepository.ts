@@ -8,7 +8,8 @@ export class ElogCountingRepository {
   startDate: Date
 
   constructor(
-    private readonly xlsxProvider: XlsxProvider
+    private readonly xlsxProvider: XlsxProvider,
+    private readonly productiveDays: number
   ) {
     const sheet = this.xlsxProvider.read({ sheetIndex: 0 })
     try {
@@ -24,7 +25,7 @@ export class ElogCountingRepository {
             date: this.excelDateToJSDate(Number(sheet[3][index + 6])),
             qunatity: Number(item)
           })),
-          total: (item.slice(6, 13) as number[]).reduce((acc, value) => acc + value, 0)
+          total: (item.slice(6, 6 + this.productiveDays) as number[]).reduce((acc, value) => acc + value, 0)
         }))
     } catch { }
   }
@@ -37,7 +38,7 @@ export class ElogCountingRepository {
     return this.repository
   }
 
-  findByPartNumber(partNumber: string, days: number) {
+  findByPartNumber(partNumber: string) {
     const findItem = this.repository.find(entry => {
       return this.normalizePartNumber(String(entry.partNumber)) === this.normalizePartNumber(partNumber)
     })
@@ -45,13 +46,13 @@ export class ElogCountingRepository {
       return null
     }
 
-    if (days <= 0) {
-      throw new Error(`invalid days of production. receve: ${days}, required:  1-${findItem.demands.length}`)
+    if (this.productiveDays <= 0) {
+      throw new Error(`invalid days of production. receve: ${this.productiveDays}, required:  1-${findItem.demands.length}`)
       // return null
     }
 
     findItem.total = findItem.demands
-      .splice(0, days)
+      .splice(0, this.productiveDays)
       .map(item => item.qunatity)
       .reduce((acc, value) => acc + value, 0)
 
