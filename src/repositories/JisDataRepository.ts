@@ -33,7 +33,7 @@ export class JisDataRepository {
         result.input('Param1', this.formatDate(starts.split('T')[0]))
         result.input('Param2', this.formatDate(ends.split('T')[0]))
 
-        console.log(starts, ends)
+        // console.log(starts, ends)
 
         result.execute<{
           CODFIAT: string,
@@ -48,11 +48,12 @@ export class JisDataRepository {
             const startsDate = DateTime.strDateToDateObj(starts).minusHours(3)
             const endsDate = DateTime.strDateToDateObj(ends).minusHours(3)
 
-            if (date.isAfter(startsDate) || date.isBefore(endsDate)) {
+            if (date.isBefore(startsDate) || date.isAfter(endsDate)) {
               return
             }
 
-            console.log(date, ' - ', startsDate, endsDate)
+            // console.log(date, ' - ', startsDate, ' - ', endsDate)
+
             if (this.repository[this.normalizePartNumber(item.CODFIAT)] === undefined) {
               this.repository[this.normalizePartNumber(item.CODFIAT)] = {
                 count: 1,

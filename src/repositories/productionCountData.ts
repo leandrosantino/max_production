@@ -18,7 +18,7 @@ export class ProductionCountDataRepository {
       });
 
       const startDateEpoch = this.dateToEpoch(starts);
-      const endDateEpoch = this.dateToEpoch(ends, true);
+      const endDateEpoch = this.dateToEpoch(ends);
 
       const production = await this.db.all(`
         SELECT production.sapcode, SUM(production.quantity) as quantity
@@ -41,9 +41,9 @@ export class ProductionCountDataRepository {
     }
   }
 
-  private dateToEpoch(date: string, endOfDay: boolean = false): number {
-    const [year, month, day] = this.formatDate(date);
-    const dateObj = endOfDay ? new Date(year, month - 1, day, 23, 59, 59, 999) : new Date(year, month - 1, day);
+  private dateToEpoch(strDate: string): number {
+    const { date: [year, month, day], time: [hour, minutes] } = this.formatDate(strDate)
+    const dateObj = new Date(year, month - 1, day, hour, minutes);
     return dateObj.getTime();
   }
 
@@ -60,7 +60,8 @@ export class ProductionCountDataRepository {
     return productionCount;
   }
 
-  formatDate(date: string) {
-    return date.split('-').map(i => Number(i));
+  formatDate(strDate: string) {
+    const [date, time] = strDate.split('T')
+    return { date: date.split('-').map(i => Number(i)), time: time.split(':').map(i => Number(i)) };
   }
 }

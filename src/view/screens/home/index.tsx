@@ -5,6 +5,7 @@ import styled from 'styled-components'
 import { api } from '@/view/query'
 import { ScreenContainer } from '@/view/components/containers/ScreenContainer'
 import { ProductionScript } from '@/domain/entities/ProductionScript'
+import {ResetIcon} from '@radix-ui/react-icons'
 
 const Form = styled.form`
   width: 100%;
@@ -46,18 +47,20 @@ const Select = styled.select`
   font-size: 1.4rem;
 `;
 
-const Button = styled.button`
+const Button = styled.button<{color?: 'reset'}>`
   padding: 0.4rem;
   border-radius: 0.4rem;
-  border: 2px solid #1d4ed8;
-  color: #1d4ed8;
   font-weight: 500;
   font-size: 1.4rem;
   background-color: transparent;
-  &:hover {
-    background-color: #1d4ed8;
-    color: white;
-  }
+  color: #1d4ed8;
+  ${p => p.color === 'reset'?``:`
+    border: 2px solid #1d4ed8;
+    &:hover {
+      background-color: #1d4ed8;
+      color: white;
+    }
+  `}
 `;
 
 const Container = styled.div`
@@ -145,15 +148,6 @@ export function Home() {
   return (
     <ScreenContainer>
       <Form>
-        {/* <FormField>
-          <Label>LowRunner:</Label>
-          <Input
-            type="number"
-            value={lowRunner}
-            disabled
-            onChange={(e) => startTransition(() => setLowRunner(Number(e.target.value)) )}
-          />
-        </FormField>*/}
         <FormField>
           <Label>Data E-log</Label>
           <Input
@@ -171,7 +165,7 @@ export function Home() {
           />
         </FormField>
         <FormField>
-          <Label>Inicio da Sem.:</Label>
+          <Label>De:</Label>
           <Input
             type="datetime-local"
             value={startDate}
@@ -179,32 +173,16 @@ export function Home() {
           />
         </FormField>
         <FormField>
-          <Label>Data do Plan.:</Label>
+          <Label>Até:</Label>
           <Input
             type="datetime-local"
             value={endsDate}
             onChange={(e) => startTransition(() => setEndsDate(e.target.value))}
           />
         </FormField>
-        <FormField>
-          <Label>Hora de Início:</Label>
-          <Input
-            type="time"
-            value={startProductionHour}
-            onChange={(e) => startTransition(() => setStartProductionHour(e.target.value))}
-          />
-        </FormField>
-        {/* <FormField>
-          <Label>UTE:</Label>
-          <Select value={ute} onChange={(e) => setUte(e.target.value)}>
-            <option value=""> ----- </option>
-            <option value="UTE-1">UTE-1</option>
-            <option value="UTE-2">UTE-2</option>
-            <option value="UTE-3">UTE-3</option>
-            <option value="UTE-4">UTE-4</option>
-            <option value="UTE-5">UTE-5</option>
-          </Select>
-        </FormField> */}
+        <Button type="button" color='reset' onClick={() => {setStartDate(DateTime.dateObjToStrDate(startDay));setEndsDate(DateTime.dateObjToStrDate(endsDay))}}>
+          <ResetIcon/>
+        </Button>
         <Button type="button" onClick={() => getProductionScript()}>
           Atualizar
         </Button>
