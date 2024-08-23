@@ -5,6 +5,7 @@ import { XlsxProvider } from '@/providers/xlsxProvider'
 import { configRepository } from '@/repositories/configRepository'
 import { ElogCountingRepository } from '@/repositories/elogCountingRepository'
 import { productRepository } from '@/factories/repositoriesFactory'
+import { ElogCounting } from '@/domain/entities/ElogCounting'
 
 export class ProductionPlanService {
 
@@ -20,10 +21,11 @@ export class ProductionPlanService {
     const xlsxServiceElog = new XlsxProvider(config.elogFileDir || '')
     const elogCountingRepository = new ElogCountingRepository(xlsxServiceElog, productiveDays)
 
-    const elogData = elogCountingRepository.findByPartNumber(partNumber)
+    const elogData: ElogCounting & { sapCode?: string } = elogCountingRepository.findByPartNumber(partNumber)
 
     const product = await productRepository.findByPartNumber(partNumber)
     elogData.description = product.description
+    elogData.sapCode = product.sapCode
 
     return elogData
   }

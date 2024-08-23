@@ -121,7 +121,7 @@ export function Home() {
   const [elogDate, setElogDate] = useState('')
 
   useEffect(() => {
-    // getProductionScript();
+    getProductionScript();
   }, []);
 
   const getProductionScript = useCallback(async () => {

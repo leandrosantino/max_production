@@ -10,6 +10,7 @@ export const ScreenContainer = styled.div`
   flex-direction: column;
   gap: .8rem;
   padding: 1.4rem;
+  position: relative;
 
   align-items: center;
 

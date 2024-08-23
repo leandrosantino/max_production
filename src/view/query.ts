@@ -19,13 +19,13 @@ export const api = {
             query: (partNumber: string, productiveDays: number) => {
                 return useQuery({
                     queryKey: ['getElogData', { partNumber, productiveDays }] as const,
-                    queryFn: ({queryKey}):Promise<import("@/domain/entities/ElogCounting").ElogCounting> => {
+                    queryFn: ({queryKey}):Promise<import("@/domain/entities/ElogCounting").ElogCounting & { sapCode?: string; }> => {
                         const [_, { partNumber, productiveDays }] = queryKey
                         return window.app.invoke('getElogData', partNumber, productiveDays)
                     }
                 })
             },
-            invoke: async (partNumber: string, productiveDays: number):Promise<import("@/domain/entities/ElogCounting").ElogCounting> => await window.app.invoke('getElogData', partNumber, productiveDays)
+            invoke: async (partNumber: string, productiveDays: number):Promise<import("@/domain/entities/ElogCounting").ElogCounting & { sapCode?: string; }> => await window.app.invoke('getElogData', partNumber, productiveDays)
         },
                 
     },
