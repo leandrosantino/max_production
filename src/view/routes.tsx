@@ -14,7 +14,7 @@ export function AppRoutes() {
 
             <Route path="" element={<Home/>} />
             <Route path="/register" element={<h1>Registro de produção</h1>} />
-            <Route path="/item/:id" element={<ElogData />} />
+            <Route path="/item/:days/:id" element={<ElogData />} />
 
           </Route>
         </>

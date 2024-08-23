@@ -15,6 +15,19 @@ export const api = {
             invoke: async (options: import("@/use-cases/production-planning-use-case/DataObjects").ProductionPlanningOptions):Promise<{ script: import("@/domain/entities/ProductionScript").ProductionScript[]; elogDate: Date; }> => await window.app.invoke('runProductionPlan', options)
         },
                 
+        getElogData: {
+            query: (partNumber: string, productiveDays: number) => {
+                return useQuery({
+                    queryKey: ['getElogData', { partNumber, productiveDays }] as const,
+                    queryFn: ({queryKey}):Promise<import("@/domain/entities/ElogCounting").ElogCounting> => {
+                        const [_, { partNumber, productiveDays }] = queryKey
+                        return window.app.invoke('getElogData', partNumber, productiveDays)
+                    }
+                })
+            },
+            invoke: async (partNumber: string, productiveDays: number):Promise<import("@/domain/entities/ElogCounting").ElogCounting> => await window.app.invoke('getElogData', partNumber, productiveDays)
+        },
+                
     },
 
 }

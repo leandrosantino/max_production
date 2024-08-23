@@ -195,7 +195,7 @@ export function Home() {
           </LoadingContainer>
         ) : (
           scripts.map((entry, index) => (
-            <PlanViewCollapsible productionDate={endsDate} key={index} sep={index==0} data={entry} />
+            <PlanViewCollapsible productiveDays={productiveDays} productionDate={endsDate} key={index} sep={index==0} data={entry} />
           ))
         )}
       </Container>

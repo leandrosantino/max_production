@@ -114,11 +114,15 @@ export class ProductionPlanning {
 
   }
 
+  getElogData(partNumber: string) {
+    return this.elogCountingRepository.findByPartNumber(partNumber)
+  }
+
   private getExternalInfoFinished({ partNumber, sapCode, multiple }: GetFinishedExternalInfoProps): ExternalInfo | null {
 
-    const elogCounting = this.elogCountingRepository.findByPartNumber(partNumber as string, this.options.productiveDays)
+    const elogCounting = this.elogCountingRepository.findByPartNumber(partNumber)
     const initialStock = this.stockCountingRepository.findBySapCode(sapCode)
-    const consumed = this.jisDataRepository.getByPartNumber(partNumber as string)
+    const consumed = this.jisDataRepository.getByPartNumber(partNumber)
     const produced = this.productionCountDataRepository.getBySapCode(sapCode)
 
     if (!elogCounting || !initialStock) {

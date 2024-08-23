@@ -10,6 +10,7 @@ import styled from 'styled-components';
 interface PlanViewCollapsibleProps {
   data: ProductionScript;
   productionDate: string;
+  productiveDays: number
   sep: boolean
 }
 
@@ -101,7 +102,7 @@ const TableRow = styled.tr`
   }
 `;
 
-export function PlanViewCollapsible({ data, productionDate, sep }: PlanViewCollapsibleProps) {
+export function PlanViewCollapsible({ data, productionDate, sep,productiveDays }: PlanViewCollapsibleProps) {
   const [open, setOpen] = useState(false);
   const now = DateTime.strDateToDateObj(productionDate);
   const navigate = useNavigate()
@@ -162,7 +163,7 @@ export function PlanViewCollapsible({ data, productionDate, sep }: PlanViewColla
 
   function dataRow(product: (typeof data.products)[number], index: number){
     return (
-      <TableRow key={index} onClick={() => navigate('item/leandro')} >
+      <TableRow key={index} onClick={() => navigate(`item/${productiveDays}/${product.partNumber}`)} >
       {/* <TableCell style={ {width: "4.5rem"} }>{getDayBySetupTime(product.setupTime)}</TableCell>
       <TableCell style={ {width: "4.5rem"} }>{getTurnBySetupTime(product.setupTime)}</TableCell>
       <TableCell style={ {width: "4.5rem"} }>{product.machineSlug}</TableCell>

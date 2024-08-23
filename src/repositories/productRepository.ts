@@ -28,6 +28,11 @@ export class ProductRepository {
     return product || null;
   }
 
+  async findByPartNumber(partNumber: string) {
+    const product = await repositories.product.findOne({ where: { partNumber } });
+    return product || null;
+  }
+
   async findById(id: number) {
     const product = await repositories.product.findOne({
       where: { id },

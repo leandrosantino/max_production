@@ -21,7 +21,7 @@ export class ElogCountingRepository {
           date: this.startDate,
           partNumber: item[0].toString(),
           description: item[1].toString(),
-          demands: item.slice(6, 13).map((item, index) => ({
+          demands: item.slice(6, 6 + this.productiveDays).map((item, index) => ({
             date: this.excelDateToJSDate(Number(sheet[3][index + 6])),
             qunatity: Number(item)
           })),
@@ -51,9 +51,9 @@ export class ElogCountingRepository {
       // return null
     }
 
-    findItem.total = findItem.demands
+    const demandValues = findItem.demands.map(item => item.qunatity)
+    findItem.total = demandValues
       .splice(0, this.productiveDays)
-      .map(item => item.qunatity)
       .reduce((acc, value) => acc + value, 0)
 
     return findItem
